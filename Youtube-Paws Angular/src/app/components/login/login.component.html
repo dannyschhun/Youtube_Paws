@@ -2,17 +2,17 @@
   <div class="row">
     <div class="form_bg">
       <form ngNativeValidate (ngSubmit)="login()">
-        <h2 class="text-center">Reimbursement Login</h2>
+        <h2 class="text-center">Login</h2>
         <br/>
         
         <div class="form-group">
-          <label for="ersUsername">Username</label>
-          <input type="text" class="form-control" id="ersUsername" name="user.ersUsername" placeholder="Username" [(ngModel)]="user.ersUsername" required>
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="user.username" placeholder="Username" [(ngModel)]="user.username" required>
         </div>
 
         <div class="form-group">
-          <label for="ersPassword">Password</label>
-          <input type="password" class="form-control" id="pwd" name="user.ersPassword" placeholder="Password" [(ngModel)]="user.ersPassword" required>
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="user.password" placeholder="Password" [(ngModel)]="user.password" required>
         </div>
         <br/>
         
