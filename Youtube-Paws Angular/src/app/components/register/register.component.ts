@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/User';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 
@@ -10,7 +9,6 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  user: User = new User();
   isValid = true;
 
   constructor(private userService: UserService, private router: Router) { }
@@ -18,16 +16,16 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  register() {
-    this.userService.registerUser(this.user).subscribe(users => {
-      if (users == null) {
-        this.isValid = !this.isValid;
-      } else {
-        this.userService.subscribers.next(users);
-        console.log(`User, ${this.user.username}, successfully registered!`);
-        this.router.navigate(['login']);
-      }
-    });
-  }
+  // register() {
+  //   this.userService.registerUser(this.user).subscribe(users => {
+  //     if (users == null) {
+  //       this.isValid = !this.isValid;
+  //     } else {
+  //       this.userService.subscribers.next(users);
+  //       console.log(`User, ${this.user.ersUsername}, successfully registered!`);
+  //       this.router.navigate(['login']);
+  //     }
+  //   });
+  // }
 
 }
