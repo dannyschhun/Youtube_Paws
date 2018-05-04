@@ -1,0 +1,15 @@
+package com.revature.main;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication(scanBasePackages= {"com.revature.*"})
+public class Driver {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Driver.class,args);
+		//System.out.println("Starting Driver");
+		
+	}
+
+}

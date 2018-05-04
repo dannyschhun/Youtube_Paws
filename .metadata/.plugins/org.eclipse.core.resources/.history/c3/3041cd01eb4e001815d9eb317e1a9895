@@ -1,0 +1,36 @@
+package com.revature.services;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.revature.beans.User;
+
+@Service
+@Transactional 
+public class UserServiceImpl implements UserService{
+
+	@Override
+	public User addUser(User newUser) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User findUserByUsername(String username) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User loginUser(String username, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public User updateUserById(User u) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

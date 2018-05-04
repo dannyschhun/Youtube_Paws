@@ -1,0 +1,16 @@
+package com.revature.beans;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="user")
+public class User {
+	private int id;
+	protected String username;
+	private String password;
+	protected int rank;
+	//private List<>
+}

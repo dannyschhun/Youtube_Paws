@@ -1,0 +1,51 @@
+//package com.revature.controllers;
+//
+//import java.util.ArrayList;
+//import java.util.List;
+//
+//import javax.servlet.http.HttpServletRequest;
+//
+//import org.springframework.stereotype.Controller;
+//import org.springframework.ui.Model;
+////import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.PathVariable;
+//import org.springframework.web.bind.annotation.RequestMapping;
+//import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.ResponseBody;
+//
+//import com.revature.beans.*;
+//
+//@Controller
+//public class UserController {
+//	
+//	@RequestMapping(value="/checkUser", method=RequestMethod.POST)
+//	@ResponseBody
+//	public int checkUser(User user){
+//		List<Bear> bears = new ArrayList<>();
+//		bears.add(new Bear(1, "JSmokey",500,"Panda"));
+//		bears.add(new Bear(2, "Ted", 640, "Panda"));
+//		bears.add(new Bear(3, "Barry", 600, "Grizzly" ));
+//		return bears;
+//	}
+//	
+//
+//	@GetMapping("/bears/{id}")
+//	@ResponseBody
+//	public Bear getBearByPathId(@PathVariable("id") int bearId) {
+//		Bear bear = null;
+//		// return BearDaoImpl.getBearById(bearId);
+//		switch(bearId) {
+//		case 1:
+//			new Bear(1, "JSmokey",500,"Panda");
+//			break;
+//		case 2:
+//			bear = new Bear(2, "Ted", 640, "Panda");
+//			break;
+//		case 3:
+//			bear = new Bear(3, "Barry", 600, "Grizzly" );
+//		}
+//		return bear;
+//	}
+//
+//}
