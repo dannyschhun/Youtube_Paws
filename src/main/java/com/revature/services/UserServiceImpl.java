@@ -1,5 +1,7 @@
 package com.revature.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +18,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Users addUser(Users newUser) {
-		// TODO Auto-generated method stub
 		for(Users users: userRepo.findAll()) {
 			if(users.getUsername().equals(newUser.getUsername())) {
 				return null;
@@ -25,34 +26,54 @@ public class UserServiceImpl implements UserService{
 		
 		return userRepo.save(newUser);
 	}
+	
+	@Override
+	public Users findUsersById(Integer id) {
+//		System.out.println(id);
+//		System.out.println(userRepo.getOne(id));
+		return (Users) userRepo.getOne(id);
+	}
 
 //	@Override
-//	public User findUserByUsername(String username) {
+//	public Users findUsersByUsername(String username) {
 //		// TODO Auto-generated method stub
 //		return userRepo.findUserByUsername(username);
 //	}
-//
+
 //	@Override
-//	public User loginUser(String username, String password) {
-//		// TODO Auto-generated method stub
-//		return userRepo.findUserByUsernameAndPassword(username, password);
+//	public Users loginUsers(Users user) {
+//		
+//		return null;
 //	}
-//
-//	@Override
-//	public User updateUserById(User u) {
-//		// TODO Auto-generated method stub
-//		User temp = userRepo.updateUserById(u.getId(), u);
-//		if(temp != null) {
-//			return temp;
+
+	@Override
+	public Users updateUsersById(Users u) {
+//		Integer n = userRepo.updateUsersById(u.getId(), u);
+//		if(n != 0) {
+//			return userRepo.getOne(u.getId());
 //		} else {
 //			return null;
 //		}
-//	}
-//
+		return userRepo.save(u);
+	}
+
+	@Override
+	public List<Users> findAllUsers() {
+		List<Users> list = userRepo.findAll();
+		return list;
+	}
+
+	@Override
+	public void deleteUsers(Users usr) {
+		userRepo.delete(usr);
+	}
+
 //	@Override
-//	public User findUserById(Integer id) {
+//	public Users findUsersByUsernameAndPassword(String username, String password) {
 //		// TODO Auto-generated method stub
-//		return userRepo.getOne(id);
+//		return null;
 //	}
+
+	
 
 }

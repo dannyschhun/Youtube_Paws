@@ -1,11 +1,18 @@
 package com.revature.services;
 
+
+
+import java.util.List;
+
 import com.revature.beans.Users;
 
 public interface UserService {
 	public Users addUser(Users newUser);
-//	public User findUserById(Integer id);
-//	public User findUserByUsername(String username);
-//	public User loginUser(String username, String password);
-//	public User updateUserById(User u);
+	public Users findUsersById(Integer id);
+//	public Users findUsersByUsername(String username);
+//	public Users findUsersByUsernameAndPassword(String username, String password);
+//	public Users loginUsers(Users user);
+	public Users updateUsersById(Users u);
+	public List<Users> findAllUsers();
+	public void deleteUsers(Users user);
 }

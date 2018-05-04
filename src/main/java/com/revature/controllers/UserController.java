@@ -1,5 +1,7 @@
 package com.revature.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,24 +26,41 @@ public class UserController {
 		return userService.addUser(newUser);
 	}
 	
-//	@RequestMapping(value="/update",method=RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	public User updateUser(@RequestBody User u) {
-//		return userService.updateUserById(u);
-//	}
-//	
-//	//find all users
-//	
-//	@RequestMapping(value="/{id}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	public User findUserById(@PathVariable("id") Integer id) {
-//		return userService.findUserById(id);
-//	}
-//	
+	@RequestMapping(value="/update",method=RequestMethod.PUT, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Users updateUser(@RequestBody Users u) {
+		return userService.updateUsersById(u);
+	}
+	
+	//find all users
+	
+	@RequestMapping(value="/{id}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Users findUserById(@PathVariable("id") Integer id) {
+		//System.out.println("This is my id:" +id);
+		return userService.findUsersById(id);
+	}
+	
+	@RequestMapping(value="/everybody",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<Users> findUsers() {
+		List<Users> list = userService.findAllUsers();
+		return list;
+	}
+	
+	@RequestMapping(value="/delete",method=RequestMethod.DELETE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public void deleteUser(@RequestBody Users badUser) {
+		userService.deleteUsers(badUser);
+	}
+	
+	
+	
+	
 //	@RequestMapping(value="/login",method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 //	@ResponseBody
-//	public User loginUser(@RequestBody User user) {
-//		return userService.loginUser(user.getUsername(), user.getPassword());
+//	public Users loginUser(@RequestBody Users user) {
+//		return userService.loginUsers(user);
 //	}
 	
 

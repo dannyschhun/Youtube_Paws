@@ -6,12 +6,15 @@ import javax.persistence.*;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 //import javax.persistence.*;
 
 
 @Component
 @Entity
 @Table(name="USERS")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Users implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -36,16 +39,25 @@ public class Users implements Serializable{
 //			joinColumns=@JoinColumn(name=),
 //			inverseJoinColumns=@JoinColumn(name=)
 //	)
-	//@JsonIgnore //ignores object to json
+	//@JsonIgnore{LazyInitializerHandler} //ignores object to json
 	
 	public Users() {
 	}
 	
 	//super constructor needs to be added
+	public Users(Integer id, String username, String password, Integer rank) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.rank = rank;
+	}
 	
 	public int getId() {
 		return id;
 	}
+	
+
 	public void setId(int id) {
 		this.id = id;
 	}
