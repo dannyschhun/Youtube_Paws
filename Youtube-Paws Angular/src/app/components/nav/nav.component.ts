@@ -6,10 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-
+ 
+  isOpen: boolean = false;
   constructor() { }
   path: any = 'assets/mytubepaws.png';
   ngOnInit() {
+  }
+
+
+  openNav() {
+    this.isOpen = true;
+  }
+
+  closeNav() {
+    this.isOpen = false;
   }
 
 }
