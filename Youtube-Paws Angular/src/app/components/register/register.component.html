@@ -1,37 +1,23 @@
-<div class="container">
-  <div class="row">
-    <div class="form_bg">
-      <form ngNativeValidate (ngSubmit)="register()">
-        <h2 class="text-center">Youtube Paws Reimbursement</h2>
-        <br/>
+<br/>
+  <div class="jumbotron">
+    <div class="container" class="col-md-4 offset-md-5">
+    <div class="row">
+      <div class="form_bg">
+        <form ngNativeValidate (ngSubmit)="login()">
+          <h2 class="display-3">Register<img style="float:left" src="../../../assets/paws.png" alt="Paws" width="50" height="50"></h2> 
+          <br/>
         
         <div class="form-group">
-          <label for="ersUsername">Username</label>
-          <input type="text" class="form-control" id="ersUsername" name="user.ersUsername" placeholder="Username" required [(ngModel)]="user.ersUsername"/>
+          <label for="username">Username</label>
+          <input type="text" class="form-control" id="username" name="user.username" placeholder="Username" required [(ngModel)]="user.username"/>
         </div>
 
         <div class="form-group">
-          <label for="ersPassword">Password</label>
-          <input type="password" class="form-control" id="pwd" name="user.ersPassword" placeholder="Password" [(ngModel)]="user.ersPassword" required>
+          <label for="password">Password</label>
+          <input type="password" class="form-control" id="password" name="user.password" placeholder="Password" [(ngModel)]="user.password" required>
         </div>
 
-        <div class="form-group">
-          <label for="userFirstName">First Name</label>
-          <input type="text" class="form-control" id="userFirstName" name="user.userFirstName" placeholder="First Name" [(ngModel)]="user.userFirstName" required>
-        </div>
-
-        <div class="form-group">
-          <label for="ersPassword">Last Name</label>
-          <input type="text" class="form-control" id="userLastName" name="user.userLastName" placeholder="Last Name" [(ngModel)]="user.userLastName" required>
-        </div>
-
-        <div class="form-group">
-          <label for="ersEmail">Email</label>
-          <input type="email" class="form-control" id="ersEmail" name="user.userEmail" placeholder="Email" [(ngModel)]="user.userEmail" required>
-        </div>
-        <br/>
-        
-        <div class="align-center">
+        <div class="col-md-4 offset-md-3">
           <button type="submit" class="btn btn" id="register">Register</button>
         </div>
       </form>
@@ -41,4 +27,5 @@
       </div>
     </div>
   </div>
+</div>
 </div>

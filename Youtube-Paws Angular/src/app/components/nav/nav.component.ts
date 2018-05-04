@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavComponent implements OnInit {
 
   constructor() { }
-  path: any = "assets/mytubepaws.png"
+  path: any = 'assets/mytubepaws.png';
   ngOnInit() {
   }
 
