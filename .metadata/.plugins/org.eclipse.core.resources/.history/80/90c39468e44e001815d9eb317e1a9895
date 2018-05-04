@@ -1,8 +1,0 @@
-#EMBEDDED TOMCAT CONFIGURATION
-server.port=8000
-#Data source configuration
-spring.datasource.driverClassName=oracle.jdbc.driver.OracleDriver
-spring.datasource.url=jdbc:oracle:thin:@//pawsdb.cqael64awg1u.us-east-2.rds.amazonaws.com:1521/ORCL/
-spring.jpa.database-platform=org.hibernate.dialect.Oracle10gDialect
-spring.datasource.username=mcasanas
-spring.datasource.password=dogseatcats

@@ -1,8 +1,0 @@
-package com.revature;
-
-import org.springframework.boot.SpringBootConfiguration;
-
-@SpringBootConfiguration
-public class Driver {
-
-}

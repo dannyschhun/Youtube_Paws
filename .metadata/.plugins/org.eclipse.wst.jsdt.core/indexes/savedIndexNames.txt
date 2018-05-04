@@ -1,7 +1,0 @@
-INDEX VERSION 1.4+C:\Users\Myles\Documents\GitHub\Youtube_Paws\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3557742638.index
-536636059.index
-926794682.index
-4265440967.index
-3855448858.index
-971788529.index
