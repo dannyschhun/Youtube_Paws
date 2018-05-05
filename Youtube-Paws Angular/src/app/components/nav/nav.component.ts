@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class NavComponent implements OnInit {
  
   isOpen: boolean = false;
+  loggedIn: boolean = true;
   constructor() { }
   path: any = 'assets/mytubepaws.png';
   ngOnInit() {

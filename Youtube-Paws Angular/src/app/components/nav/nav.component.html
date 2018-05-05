@@ -12,26 +12,28 @@
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Subscriptions</a>
+        <a *ngIf="loggedIn" class="nav-link" routerLink="/subscriptions">Subscriptions</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login">Login</a>
+        <a *ngIf="!loggedIn" class="nav-link" routerLink="/login">Login</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="/register">Register</a>
+        <a *ngIf="!loggedIn" class="nav-link" routerLink="/register">Register</a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="loggedIn" class="nav-link" routerLink="/settings">Settings</a>
       </li>
     </ul>
         
   </div>
 </nav>
 
-<div id="mySidenav" class="sidenav" [style.width]="isOpen ? '250px':'0px'">
-  <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+<div *ngIf="loggedIn" id="mySidenav" class="sidenav" [style.width]="isOpen ? '250px':'0px'">
+  <a  class="closebtn" (click)="closeNav()">&times;</a>
   <a href="#">About</a>
   <a href="#">Services</a>
   <a href="#">Clients</a>
   <a href="#">Contact</a>
 </div>
-<p>{{cSSMenu}}</p>
-<span style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776; Playlist</span>
+<span *ngIf="loggedIn" style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776; Playlist</span>
 <router-outlet></router-outlet>

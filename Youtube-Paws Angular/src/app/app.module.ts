@@ -11,6 +11,11 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserService } from './services/user.service';
 import { NavComponent } from './components/nav/nav.component';
+import { HomeComponent } from './components/home/home.component';
+import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
+import { SettingsComponent } from './components/settings/settings.component';
+import { AftermathComponent } from './components/aftermath/aftermath.component';
+import { WatchComponent } from './components/watch/watch.component';
 
 
 @NgModule({
@@ -18,7 +23,12 @@ import { NavComponent } from './components/nav/nav.component';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    NavComponent
+    HomeComponent,
+    NavComponent,
+    SubscriptionsComponent,
+    SettingsComponent,
+    AftermathComponent,
+    WatchComponent,
   ],
   imports: [
     BrowserModule,
