@@ -17,10 +17,10 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    if (this.loggedUser != null) {
-      this.userService.subscribers.next(JSON.parse(localStorage.getItem('user')));
-      this.router.navigate(['home']);
-    }
+    // if (this.loggedUser != null) {
+    //   this.userService.subscribers.next(JSON.parse(localStorage.getItem('user')));
+    //   this.router.navigate(['home']);
+    // }
   }
 
   login() {
