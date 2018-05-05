@@ -33,7 +33,9 @@ public class ViewSettingsController {
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<ViewSettings> getViewSettingById(@PathVariable("id") ViewSettings vs){
+	public List<ViewSettings> getViewSettingById(@PathVariable("id") Integer n){
+		ViewSettings vs = new ViewSettings();
+		vs.setId(n);
 		return vsService.getViewSettingsByName(vs);
 	}
 	
