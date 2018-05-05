@@ -58,15 +58,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Users updateUsersById(Users u) {
-		Set<Tags> s = new HashSet<Tags>();
-		for(Tags t: vs.getSettingTags()) {
-			List<Tags> tags = tRepo.findTagsByName(t.getName());
-			if(!tags.isEmpty()) {
-				s.add(tags.get(0));
-			} else {
-				s.add(t);
-			}
-		}
 		List<ViewSettings> myList = new ArrayList<ViewSettings>();
 		for(ViewSettings vs: u.getUserViewSettings()) {
 			if(!vsRepo.findViewSettingsById(vs.getId()).isEmpty()) {
@@ -92,7 +83,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Users loginUsers(Users user) {
-		// TODO Auto-generated method stub
 		Users log = userRepo.findUsersByUsernameAndPassword(user.getUsername(), user.getPassword());
 		return log;
 	}

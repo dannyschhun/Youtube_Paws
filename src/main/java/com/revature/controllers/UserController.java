@@ -62,8 +62,8 @@ public class UserController {
 	
 	@RequestMapping(value="/viewSettings",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<ViewSettings> userViewSettings() {
-		List<ViewSettings> list = userService.getUserViewSettings();
+	public List<ViewSettings> userViewSettings(@RequestBody Users user) {
+		List<ViewSettings> list = userService.getUserViewSettings(user);
 		return list;
 	}
 

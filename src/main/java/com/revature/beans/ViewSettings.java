@@ -1,7 +1,6 @@
 package com.revature.beans;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -49,97 +48,160 @@ public class ViewSettings implements Serializable{
 			joinColumns=@JoinColumn(name="View_Settings_ID"),
 			inverseJoinColumns=@JoinColumn(name="TAG_ID"))
 	private Set<Tags> settingTags; 
+	
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(
+			name="EX_TAGS",
+			joinColumns=@JoinColumn(name="View_Settings_ID"),
+			inverseJoinColumns=@JoinColumn(name="TAG_ID"))
+	private Set<Tags> excludeTags; 
 
 	
 	
 	public ViewSettings() {
 	}
 
+
+
 	public Integer getId() {
 		return id;
 	}
+
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
+
+
 	public String getViewSettingsName() {
 		return viewSettingsName;
 	}
 
+
+
 	public void setViewSettingsName(String viewSettingsName) {
 		this.viewSettingsName = viewSettingsName;
 	}
+
+
+
 	public Double getLengthMin() {
 		return lengthMin;
 	}
+
+
 
 	public void setLengthMin(Double lengthMin) {
 		this.lengthMin = lengthMin;
 	}
 
+
+
 	public Double getLengthMax() {
 		return lengthMax;
 	}
+
+
 
 	public void setLengthMax(Double lengthMax) {
 		this.lengthMax = lengthMax;
 	}
 
+
+
 	public Long getSubscriberCountMin() {
 		return subscriberCountMin;
 	}
+
+
 
 	public void setSubscriberCountMin(Long subscriberCountMin) {
 		this.subscriberCountMin = subscriberCountMin;
 	}
 
+
+
 	public Long getSubscriberCountMax() {
 		return subscriberCountMax;
 	}
+
+
 
 	public void setSubscriberCountMax(Long subscriberCountMax) {
 		this.subscriberCountMax = subscriberCountMax;
 	}
 
+
+
 	public String getUploadTimeMin() {
 		return uploadTimeMin;
 	}
+
+
 
 	public void setUploadTimeMin(String uploadTimeMin) {
 		this.uploadTimeMin = uploadTimeMin;
 	}
 
+
+
 	public String getUploadTimeMax() {
 		return uploadTimeMax;
 	}
+
+
 
 	public void setUploadTimeMax(String uploadTimeMax) {
 		this.uploadTimeMax = uploadTimeMax;
 	}
 
+
+
 	public Double getRatingMin() {
 		return ratingMin;
 	}
+
+
 
 	public void setRatingMin(Double ratingMin) {
 		this.ratingMin = ratingMin;
 	}
 
+
+
 	public Double getRatinMax() {
 		return ratinMax;
 	}
+
+
 
 	public void setRatinMax(Double ratinMax) {
 		this.ratinMax = ratinMax;
 	}
 
+
+
 	public Set<Tags> getSettingTags() {
 		return settingTags;
 	}
 
+
+
 	public void setSettingTags(Set<Tags> settingTags) {
 		this.settingTags = settingTags;
+	}
+
+
+
+	public Set<Tags> getExcludeTags() {
+		return excludeTags;
+	}
+
+
+
+	public void setExcludeTags(Set<Tags> excludeTags) {
+		this.excludeTags = excludeTags;
 	}
 
 
@@ -148,6 +210,7 @@ public class ViewSettings implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((excludeTags == null) ? 0 : excludeTags.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lengthMax == null) ? 0 : lengthMax.hashCode());
 		result = prime * result + ((lengthMin == null) ? 0 : lengthMin.hashCode());
@@ -162,6 +225,8 @@ public class ViewSettings implements Serializable{
 		return result;
 	}
 
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -171,6 +236,11 @@ public class ViewSettings implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		ViewSettings other = (ViewSettings) obj;
+		if (excludeTags == null) {
+			if (other.excludeTags != null)
+				return false;
+		} else if (!excludeTags.equals(other.excludeTags))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -229,13 +299,18 @@ public class ViewSettings implements Serializable{
 		return true;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "ViewSettings [id=" + id + ", viewSettingsName=" + viewSettingsName + ", lengthMin=" + lengthMin
 				+ ", lengthMax=" + lengthMax + ", subscriberCountMin=" + subscriberCountMin + ", subscriberCountMax="
 				+ subscriberCountMax + ", uploadTimeMin=" + uploadTimeMin + ", uploadTimeMax=" + uploadTimeMax
-				+ ", ratingMin=" + ratingMin + ", ratinMax=" + ratinMax + ", settingTags=" + settingTags+"]";
+				+ ", ratingMin=" + ratingMin + ", ratinMax=" + ratinMax + ", settingTags=" + settingTags
+				+ ", excludeTags=" + excludeTags + "]";
 	}
+
+	
 
 	
 	
