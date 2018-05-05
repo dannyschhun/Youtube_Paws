@@ -3,6 +3,7 @@ package com.revature.beans;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
 
@@ -17,9 +18,10 @@ public class Tags implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ID")
+	@Column(name="TAG_ID")
 	private Integer id;
 	@Column(name="TAG_NAME")
+	@NotNull
 	private String name;
 	public Tags() {
 		super();

@@ -1,23 +1,30 @@
 package com.revature.beans;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.stereotype.Component;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Component
 @Entity
-@Table(name = "Video_Settings")
+@Table(name = "View_Settings")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class ViewSettings implements Serializable{ 
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="id")
+	@Column(name="VIEW_SETTINGS_ID")
 	private Integer id;
 	
 	@Column(name="VIEW_SETTINGS_NAME")
+	@NotNull
 	private String viewSettingsName;
 	@Column(name="VIEW_SETTINGS_LENGTH_MIN")
 	private Double lengthMin;
@@ -36,11 +43,17 @@ public class ViewSettings implements Serializable{
 	@Column(name="VIEW_SETTINGS_RATING_MAX")
 	private Double ratinMax;
 	
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(
+			name="VS_TAGS",
+			joinColumns=@JoinColumn(name="View_Settings_ID"),
+			inverseJoinColumns=@JoinColumn(name="TAG_ID"))
+	private Set<Tags> settingTags; 
+
+	
+	
 	public ViewSettings() {
-		super();
 	}
-	
-	
 
 	public Integer getId() {
 		return id;
@@ -121,6 +134,16 @@ public class ViewSettings implements Serializable{
 		this.ratinMax = ratinMax;
 	}
 
+	public Set<Tags> getSettingTags() {
+		return settingTags;
+	}
+
+	public void setSettingTags(Set<Tags> settingTags) {
+		this.settingTags = settingTags;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -130,6 +153,7 @@ public class ViewSettings implements Serializable{
 		result = prime * result + ((lengthMin == null) ? 0 : lengthMin.hashCode());
 		result = prime * result + ((ratinMax == null) ? 0 : ratinMax.hashCode());
 		result = prime * result + ((ratingMin == null) ? 0 : ratingMin.hashCode());
+		result = prime * result + ((settingTags == null) ? 0 : settingTags.hashCode());
 		result = prime * result + ((subscriberCountMax == null) ? 0 : subscriberCountMax.hashCode());
 		result = prime * result + ((subscriberCountMin == null) ? 0 : subscriberCountMin.hashCode());
 		result = prime * result + ((uploadTimeMax == null) ? 0 : uploadTimeMax.hashCode());
@@ -172,6 +196,11 @@ public class ViewSettings implements Serializable{
 				return false;
 		} else if (!ratingMin.equals(other.ratingMin))
 			return false;
+		if (settingTags == null) {
+			if (other.settingTags != null)
+				return false;
+		} else if (!settingTags.equals(other.settingTags))
+			return false;
 		if (subscriberCountMax == null) {
 			if (other.subscriberCountMax != null)
 				return false;
@@ -199,6 +228,16 @@ public class ViewSettings implements Serializable{
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ViewSettings [id=" + id + ", viewSettingsName=" + viewSettingsName + ", lengthMin=" + lengthMin
+				+ ", lengthMax=" + lengthMax + ", subscriberCountMin=" + subscriberCountMin + ", subscriberCountMax="
+				+ subscriberCountMax + ", uploadTimeMin=" + uploadTimeMin + ", uploadTimeMax=" + uploadTimeMax
+				+ ", ratingMin=" + ratingMin + ", ratinMax=" + ratinMax + ", settingTags=" + settingTags+"]";
+	}
+
+	
 	
 	
 	

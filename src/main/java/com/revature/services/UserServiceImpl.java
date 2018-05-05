@@ -1,13 +1,18 @@
 package com.revature.services;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.revature.beans.Tags;
 import com.revature.beans.Users;
-import com.revature.repositories.UserRepository;
+import com.revature.beans.ViewSettings;
+import com.revature.repositories.*;
 
 @Service
 @Transactional 
@@ -15,6 +20,11 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	UserRepository userRepo;
+	
+	@Autowired
+	ViewSettingsRepository vsRepo;
+	@Autowired
+	ViewSettingsService vsService;
 
 	@Override
 	public Users addUser(Users newUser) {
@@ -48,12 +58,24 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Users updateUsersById(Users u) {
-//		Integer n = userRepo.updateUsersById(u.getId(), u);
-//		if(n != 0) {
-//			return userRepo.getOne(u.getId());
-//		} else {
-//			return null;
-//		}
+		Set<Tags> s = new HashSet<Tags>();
+		for(Tags t: vs.getSettingTags()) {
+			List<Tags> tags = tRepo.findTagsByName(t.getName());
+			if(!tags.isEmpty()) {
+				s.add(tags.get(0));
+			} else {
+				s.add(t);
+			}
+		}
+		List<ViewSettings> myList = new ArrayList<ViewSettings>();
+		for(ViewSettings vs: u.getUserViewSettings()) {
+			if(!vsRepo.findViewSettingsById(vs.getId()).isEmpty()) {
+				myList.add(vsService.updateViewSettings(vs));
+			} else {
+				myList.add(vsService.updateViewSettings(vs));
+			}
+		}
+		u.setUserViewSettings(myList);
 		return userRepo.save(u);
 	}
 
@@ -73,6 +95,11 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		Users log = userRepo.findUsersByUsernameAndPassword(user.getUsername(), user.getPassword());
 		return log;
+	}
+
+	@Override
+	public List<ViewSettings> getUserViewSettings(Users user) {
+		return user.getUserViewSettings();
 	}
 
 	

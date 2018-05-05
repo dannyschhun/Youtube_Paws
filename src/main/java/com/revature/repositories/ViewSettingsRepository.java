@@ -11,4 +11,5 @@ import com.revature.beans.ViewSettings;
 @Repository
 public interface ViewSettingsRepository extends JpaRepository<ViewSettings, Integer>{
 	public List<ViewSettings> findViewSettingsByViewSettingsName(String name);
+	public List<ViewSettings> findViewSettingsById(Integer id);
 }

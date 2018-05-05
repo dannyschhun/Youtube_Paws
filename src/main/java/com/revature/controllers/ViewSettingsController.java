@@ -21,7 +21,7 @@ public class ViewSettingsController {
 
 	@RequestMapping(value="/new",method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public ViewSettings addViewSettings(@RequestBody ViewSettings vs) {
+	public ViewSettings addViewSettings(@Valid @RequestBody ViewSettings vs) {
 		return vsService.addViewSettings(vs);
 	}
 	
@@ -33,10 +33,10 @@ public class ViewSettingsController {
 	
 	@RequestMapping(value="/{id}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
-	public List<ViewSettings> getViewSettingById(@PathVariable("id") Integer n){
+	public ViewSettings getViewSettingById(@PathVariable("id") Integer n){
 		ViewSettings vs = new ViewSettings();
 		vs.setId(n);
-		return vsService.getViewSettingsByName(vs);
+		return vsService.getViewSettingsById(n);
 	}
 	
 	@RequestMapping(value="/update", method=RequestMethod.PUT,produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)

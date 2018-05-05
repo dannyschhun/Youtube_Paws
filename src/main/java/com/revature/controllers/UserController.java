@@ -60,6 +60,12 @@ public class UserController {
 		return userService.loginUsers(user);
 	}
 	
+	@RequestMapping(value="/viewSettings",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public List<ViewSettings> userViewSettings() {
+		List<ViewSettings> list = userService.getUserViewSettings();
+		return list;
+	}
 
 	
 }
