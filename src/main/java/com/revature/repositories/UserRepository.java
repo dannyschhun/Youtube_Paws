@@ -13,11 +13,8 @@ import com.revature.beans.Users;
 @Repository
 public interface UserRepository extends JpaRepository<Users, Integer>  {
 	
-//	public int checkUser(Users user);
-//	public Users loginUsers(Users user);
-//	public Users findUserByUsername(String username);
-//	public Users findUsersByUsernameAndPassword(String username, String password);
-//	public List<Users> findUsers();
+	public Users findUserByUsername(String username);
+	public Users findUsersByUsernameAndPassword(String username, String password);
 //	@Modifying
 //	@Query("UPDATE Users u SET u = :upUsers WHERE u.id = :id")
 //	public Integer updateUsersById(@Param("id")Integer id, @Param("upUsers")Users upUsers);

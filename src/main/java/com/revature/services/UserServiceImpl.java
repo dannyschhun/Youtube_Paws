@@ -68,11 +68,12 @@ public class UserServiceImpl implements UserService{
 		userRepo.delete(usr);
 	}
 
-//	@Override
-//	public Users findUsersByUsernameAndPassword(String username, String password) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public Users loginUsers(Users user) {
+		// TODO Auto-generated method stub
+		Users log = userRepo.findUsersByUsernameAndPassword(user.getUsername(), user.getPassword());
+		return log;
+	}
 
 	
 

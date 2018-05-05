@@ -54,14 +54,11 @@ public class UserController {
 		userService.deleteUsers(badUser);
 	}
 	
-	
-	
-	
-//	@RequestMapping(value="/login",method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
-//	@ResponseBody
-//	public Users loginUser(@RequestBody Users user) {
-//		return userService.loginUsers(user);
-//	}
+	@RequestMapping(value="/login",method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Users loginUser(@RequestBody Users user) {
+		return userService.loginUsers(user);
+	}
 	
 
 	
