@@ -1,4 +1,4 @@
-package com.revature.model;
+package com.revature.beans;
 
 import java.io.Serializable;
 
@@ -21,6 +21,11 @@ public class History implements Serializable{
 	
 	@Id
 	private String videoLink;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "users_id",referencedColumnName="USERS_ID",nullable=true)
+	private Users users;
+	
 
 	public int getHistoryId() {
 		return historyId;
@@ -37,6 +42,17 @@ public class History implements Serializable{
 	public void setVideoLink(String videoLink) {
 		this.videoLink = videoLink;
 	}
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
+	}
+
+	
+	
 	
 	
 }

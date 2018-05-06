@@ -2,7 +2,7 @@ package com.revature.services;
 
 import java.util.List;
 
-import com.revature.model.Playlist;
+import com.revature.beans.Playlist;
 
 public interface PlaylistService {
 	public Playlist addPlaylist(Playlist a0);

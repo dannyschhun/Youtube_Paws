@@ -2,7 +2,7 @@ package com.revature.services;
 
 import java.util.List;
 
-import com.revature.model.PageLayout;
+import com.revature.beans.PageLayout;
 
 public interface PageLayoutService {
 	public List<PageLayout> getLayouts();

@@ -1,4 +1,4 @@
-package com.revature.controller;
+package com.revature.controllers;
 
 import java.util.List;
 
@@ -7,8 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-
-import com.revature.model.Playlist;
+import com.revature.beans.Playlist;
 import com.revature.services.PlaylistService;
 
 @Controller

@@ -1,8 +1,7 @@
 package com.revature.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import javax.persistence.*;
 
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-//import javax.persistence.*;
 
 
 @Component
@@ -34,14 +32,8 @@ public class Users implements Serializable{
 	
 	@Column(name = "USER_RANK")
 	private Integer rank;
-	//add the setting below, above is for 5-4 mvp
-//	@ManyToMany(fetch=FetchType.EAGER)
-//	@JoinTable(
-//			name="VIEW_SETTINGS",
-//			joinColumns=@JoinColumn(name=),
-//			inverseJoinColumns=@JoinColumn(name=)
-//	)
-	//@JsonIgnore{LazyInitializerHandler} //ignores object to json
+
+	
 	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	@JoinTable(
 			name="USERS_VS",
@@ -49,6 +41,20 @@ public class Users implements Serializable{
 			inverseJoinColumns=@JoinColumn(name="VIEW_SETTINGS_ID")
 	)
 	List<ViewSettings> userViewSettings;
+	
+	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+	@JoinTable(
+			name="USERS_PAGELAYOUT",
+			joinColumns=@JoinColumn(name="USERS_ID"),
+			inverseJoinColumns=@JoinColumn(name="ID")
+	)
+	List<PageLayout> userPageLayout;
+	
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER,mappedBy="users")
+	Set<History> history;
+	
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER,mappedBy="users")
+	Set<History> playlist;
 	
 	public Users() {
 	}
@@ -100,6 +106,14 @@ public class Users implements Serializable{
 
 	public void setUserViewSettings(List<ViewSettings> userViewSettings) {
 		this.userViewSettings = userViewSettings;
+	}
+
+	public Set<History> getHistory() {
+		return history;
+	}
+
+	public void setHistory(Set<History> history) {
+		this.history = history;
 	}
 
 	@Override

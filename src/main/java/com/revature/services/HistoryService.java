@@ -2,7 +2,7 @@ package com.revature.services;
 
 import java.util.List;
 
-import com.revature.model.History;
+import com.revature.beans.History;
 
 public interface HistoryService {
 	public History addHistory(History a0);

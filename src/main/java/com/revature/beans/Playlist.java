@@ -1,4 +1,4 @@
-package com.revature.model;
+package com.revature.beans;
 
 import java.io.Serializable;
 
@@ -11,8 +11,8 @@ import com.revature.composite.PlaylistComposite;
 @IdClass(value=PlaylistComposite.class)
 public class Playlist implements Serializable{
 
-	/**
-	 * 
+	/*
+	
 	 */
 	private static final long serialVersionUID = 1L;
 	
@@ -21,6 +21,10 @@ public class Playlist implements Serializable{
 
 	@Id
 	private String videoLink;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "users_id",referencedColumnName="USERS_ID",nullable=true)
+	private Users users;
 
 	public int getPlaylistId() {
 		return playlistId;
@@ -36,6 +40,14 @@ public class Playlist implements Serializable{
 
 	public void setVideoLink(String videoLink) {
 		this.videoLink = videoLink;
+	}
+
+	public Users getUsers() {
+		return users;
+	}
+
+	public void setUsers(Users users) {
+		this.users = users;
 	}
 	
 	
