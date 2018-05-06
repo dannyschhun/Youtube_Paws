@@ -55,6 +55,13 @@ public class ViewSettings implements Serializable{
 			joinColumns=@JoinColumn(name="View_Settings_ID"),
 			inverseJoinColumns=@JoinColumn(name="TAG_ID"))
 	private Set<Tags> excludeTags; 
+	
+	@ManyToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@JoinTable(
+			name="VS_CATEGORY",
+			joinColumns=@JoinColumn(name="View_Settings_ID"),
+			inverseJoinColumns=@JoinColumn(name="CATEGORY_ID"))
+	private Set<Category> categories; 
 
 	
 	
@@ -204,12 +211,25 @@ public class ViewSettings implements Serializable{
 		this.excludeTags = excludeTags;
 	}
 
+	
+
+	public Set<Category> getCategories() {
+		return categories;
+	}
+
+
+
+	public void setCategories(Set<Category> categories) {
+		this.categories = categories;
+	}
+
 
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((categories == null) ? 0 : categories.hashCode());
 		result = prime * result + ((excludeTags == null) ? 0 : excludeTags.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((lengthMax == null) ? 0 : lengthMax.hashCode());
@@ -236,6 +256,11 @@ public class ViewSettings implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		ViewSettings other = (ViewSettings) obj;
+		if (categories == null) {
+			if (other.categories != null)
+				return false;
+		} else if (!categories.equals(other.categories))
+			return false;
 		if (excludeTags == null) {
 			if (other.excludeTags != null)
 				return false;
@@ -307,8 +332,12 @@ public class ViewSettings implements Serializable{
 				+ ", lengthMax=" + lengthMax + ", subscriberCountMin=" + subscriberCountMin + ", subscriberCountMax="
 				+ subscriberCountMax + ", uploadTimeMin=" + uploadTimeMin + ", uploadTimeMax=" + uploadTimeMax
 				+ ", ratingMin=" + ratingMin + ", ratinMax=" + ratinMax + ", settingTags=" + settingTags
-				+ ", excludeTags=" + excludeTags + "]";
+				+ ", excludeTags=" + excludeTags + ", categories=" + categories + "]";
 	}
+
+
+
+	
 
 	
 
