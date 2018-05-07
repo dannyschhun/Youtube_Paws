@@ -46,21 +46,28 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public Users updateUsersById(Users u) {
-		List<ViewSettings> myList = new ArrayList<ViewSettings>();
-		for(ViewSettings vs: u.getUserViewSettings()) {
-			List<ViewSettings> vsTemp = vsRepo.findViewSettingsById(vs.getId());
-			if(!vsTemp.isEmpty()) {
-				myList.add(vsService.updateViewSettings(vs));
-			} else {
-				myList.add(vsService.updateViewSettings(vs));
-			}
-		}
-		List<PageLayout> myLayouts = new ArrayList<PageLayout>();
-		for(PageLayout pL: u.getUserPageLayout()) {
-			myLayouts.add(plService.updateLayout(pL));	
-		}
-		u.setUserPageLayout(myLayouts);	
-		u.setUserViewSettings(myList);
+//		List<ViewSettings> myList = new ArrayList<ViewSettings>();
+//		
+//		System.out.println(u.getUserViewSettings().size());
+//		if(u.getUserViewSettings()==null || 
+//				!u.getUserViewSettings().isEmpty()) {
+//		for(ViewSettings vs: u.getUserViewSettings()) {
+//			List<ViewSettings> vsTemp = vsRepo.findViewSettingsById(vs.getId());
+//			if(!vsTemp.isEmpty()) {
+//				myList.add(vsService.updateViewSettings(vs));
+//			} else {
+//				myList.add(vsService.updateViewSettings(vs));
+//			}
+//			u.setUserViewSettings(myList);
+//		}
+//		}
+//		if(u.getUserPageLayout()!=null||!u.getUserPageLayout().isEmpty()) {
+//		List<PageLayout> myLayouts = new ArrayList<PageLayout>();
+//		for(PageLayout pL: u.getUserPageLayout()) {
+//			myLayouts.add(plService.updateLayout(pL));	
+//		}
+//		u.setUserPageLayout(myLayouts);	
+//		}	
 		return userRepo.save(u);
 	}
 
