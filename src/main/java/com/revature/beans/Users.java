@@ -116,6 +116,22 @@ public class Users implements Serializable{
 		this.history = history;
 	}
 
+	public List<PageLayout> getUserPageLayout() {
+		return userPageLayout;
+	}
+
+	public void setUserPageLayout(List<PageLayout> userPageLayout) {
+		this.userPageLayout = userPageLayout;
+	}
+
+	public Set<History> getPlaylist() {
+		return playlist;
+	}
+
+	public void setPlaylist(Set<History> playlist) {
+		this.playlist = playlist;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

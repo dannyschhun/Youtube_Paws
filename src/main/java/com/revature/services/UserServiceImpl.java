@@ -1,17 +1,12 @@
 package com.revature.services;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.revature.beans.Tags;
-import com.revature.beans.Users;
-import com.revature.beans.ViewSettings;
+import com.revature.beans.*;
 import com.revature.repositories.*;
 
 @Service
@@ -25,6 +20,10 @@ public class UserServiceImpl implements UserService{
 	ViewSettingsRepository vsRepo;
 	@Autowired
 	ViewSettingsService vsService;
+	@Autowired
+	PageLayoutService plService;
+	@Autowired
+	PageLayoutRepository plRepo;
 
 	@Override
 	public Users addUser(Users newUser) {
@@ -44,28 +43,23 @@ public class UserServiceImpl implements UserService{
 		return (Users) userRepo.getOne(id);
 	}
 
-//	@Override
-//	public Users findUsersByUsername(String username) {
-//		// TODO Auto-generated method stub
-//		return userRepo.findUserByUsername(username);
-//	}
-
-//	@Override
-//	public Users loginUsers(Users user) {
-//		
-//		return null;
-//	}
 
 	@Override
 	public Users updateUsersById(Users u) {
 		List<ViewSettings> myList = new ArrayList<ViewSettings>();
 		for(ViewSettings vs: u.getUserViewSettings()) {
-			if(!vsRepo.findViewSettingsById(vs.getId()).isEmpty()) {
+			List<ViewSettings> vsTemp = vsRepo.findViewSettingsById(vs.getId());
+			if(!vsTemp.isEmpty()) {
 				myList.add(vsService.updateViewSettings(vs));
 			} else {
 				myList.add(vsService.updateViewSettings(vs));
 			}
 		}
+		List<PageLayout> myLayouts = new ArrayList<PageLayout>();
+		for(PageLayout pL: u.getUserPageLayout()) {
+			myLayouts.add(plService.updateLayout(pL));	
+		}
+		u.setUserPageLayout(myLayouts);	
 		u.setUserViewSettings(myList);
 		return userRepo.save(u);
 	}
