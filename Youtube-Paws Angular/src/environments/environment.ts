@@ -5,5 +5,6 @@
 
 export const environment = {
   production: false,
-  apiUrl: `http://blank`
+  apiUrl: ``,
+  youtubeUrl:`https://www.googleapis.com/youtube/v3/`
 };

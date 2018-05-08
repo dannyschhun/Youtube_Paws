@@ -18,9 +18,13 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
 <<<<<<< HEAD
+<<<<<<< HEAD
     { path: 'home', component: HomeComponent }
 =======
     { path: 'aftermath', component: AftermathComponent},
+=======
+    { path: 'aftermath/:query', component: AftermathComponent},
+>>>>>>> refs/remotes/origin/DevRepo
     { path: 'settings', component: SettingsComponent}, 
     { path: 'subscriptions', component: SubscriptionsComponent },
     { path: 'watch', component: WatchComponent }
