@@ -9,13 +9,14 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   search: String = "";
-
+  query: String = "";
   constructor(private router: Router) { }
 
   ngOnInit() {
+
   }
 
-  searched() {
-      this.router.navigate(['aftermath']);
+  searched() { 
+    this.router.navigate(['aftermath/'+this.search]);
   }
 }

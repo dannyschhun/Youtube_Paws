@@ -14,7 +14,7 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent},
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
-    { path: 'aftermath', component: AftermathComponent},
+    { path: 'aftermath/:query', component: AftermathComponent},
     { path: 'settings', component: SettingsComponent}, 
     { path: 'subscriptions', component: SubscriptionsComponent },
     { path: 'watch', component: WatchComponent }

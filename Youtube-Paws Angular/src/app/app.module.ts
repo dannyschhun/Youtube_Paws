@@ -16,6 +16,7 @@ import { SubscriptionsComponent } from './components/subscriptions/subscriptions
 import { SettingsComponent } from './components/settings/settings.component';
 import { AftermathComponent } from './components/aftermath/aftermath.component';
 import { WatchComponent } from './components/watch/watch.component';
+import { VideosService } from './services/videos.service';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { WatchComponent } from './components/watch/watch.component';
     CollapseModule
   ],
   providers: [
-    UserService
+    UserService,
+    VideosService
   ],
   bootstrap: [AppComponent]
 })

@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class NavComponent implements OnInit {
  
   isOpen: boolean = false;
+  viewOpen: boolean = false;
   loggedIn: boolean = true;
+  showFiller = false;
   constructor() { }
   path: any = 'assets/mytubepaws.png';
   ngOnInit() {
@@ -21,6 +23,14 @@ export class NavComponent implements OnInit {
 
   closeNav() {
     this.isOpen = false;
+  }
+
+  openView() {
+    this.viewOpen = true;
+  }
+
+  closeView() {
+    this.viewOpen = false;
   }
 
 }
