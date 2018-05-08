@@ -116,13 +116,32 @@ public class Users implements Serializable{
 		this.history = history;
 	}
 
+	public List<PageLayout> getUserPageLayout() {
+		return userPageLayout;
+	}
+
+	public void setUserPageLayout(List<PageLayout> userPageLayout) {
+		this.userPageLayout = userPageLayout;
+	}
+
+	public Set<History> getPlaylist() {
+		return playlist;
+	}
+
+	public void setPlaylist(Set<History> playlist) {
+		this.playlist = playlist;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((history == null) ? 0 : history.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((playlist == null) ? 0 : playlist.hashCode());
 		result = prime * result + ((rank == null) ? 0 : rank.hashCode());
+		result = prime * result + ((userPageLayout == null) ? 0 : userPageLayout.hashCode());
 		result = prime * result + ((userViewSettings == null) ? 0 : userViewSettings.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -137,6 +156,11 @@ public class Users implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Users other = (Users) obj;
+		if (history == null) {
+			if (other.history != null)
+				return false;
+		} else if (!history.equals(other.history))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -147,10 +171,20 @@ public class Users implements Serializable{
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (playlist == null) {
+			if (other.playlist != null)
+				return false;
+		} else if (!playlist.equals(other.playlist))
+			return false;
 		if (rank == null) {
 			if (other.rank != null)
 				return false;
 		} else if (!rank.equals(other.rank))
+			return false;
+		if (userPageLayout == null) {
+			if (other.userPageLayout != null)
+				return false;
+		} else if (!userPageLayout.equals(other.userPageLayout))
 			return false;
 		if (userViewSettings == null) {
 			if (other.userViewSettings != null)
@@ -168,8 +202,11 @@ public class Users implements Serializable{
 	@Override
 	public String toString() {
 		return "Users [id=" + id + ", username=" + username + ", password=" + password + ", rank=" + rank
-				+ ", userViewSettings=" + userViewSettings + "]";
+				+ ", userViewSettings=" + userViewSettings + ", userPageLayout=" + userPageLayout + ", history="
+				+ history + ", playlist=" + playlist + "]";
 	}
+
+	
 	
 	
 	

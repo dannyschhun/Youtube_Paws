@@ -3,7 +3,6 @@
   <groupId>com.revature</groupId>
   <artifactId>Youtube_Paws_Spring</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  
   <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -51,8 +50,8 @@
         
         <dependency>
             <groupId>com.oracle</groupId>
-            <artifactId>ojdbc7</artifactId>
-            <version>11.2.0</version>
+            <artifactId>ojdbc8</artifactId>
+            <version>12.2.0.1</version>
         </dependency>
     </dependencies>
   
