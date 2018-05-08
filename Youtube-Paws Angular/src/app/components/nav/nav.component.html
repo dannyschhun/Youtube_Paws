@@ -28,7 +28,7 @@
   </div>
 </nav>
 
-<div *ngIf="loggedIn" id="mySidenav" class="sidenav" [style.width]="isOpen ? '250px':'0px'">
+<div *ngIf="loggedIn" id="playlist" class="sidenav" [style.width]="isOpen ? '250px':'0px'">
   <a  class="closebtn" (click)="closeNav()">&times;</a>
   <a href="#">About</a>
   <a href="#">Services</a>
@@ -36,4 +36,19 @@
   <a href="#">Contact</a>
 </div>
 <span *ngIf="loggedIn" style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776; Playlist</span>
+
+<span *ngIf="loggedIn" style="font-size:30px;cursor:pointer; float: right;" (click)="openView()">&#9776; View Settings</span>
+<div *ngIf="loggedIn" id="view-settings" class="sidenav" [style.width]="viewOpen ? '250px':'0px'">
+  <a  class="closebtn" (click)="closeView()">&times;</a>
+  <label>Minimum Time</label>
+  <div>
+  <input type="text" class="form-control col-sm-4" placeholder="mins">
+  <input type="text" class="form-control col-sm-4" placeholder="sec">   
+  </div>
+  <label>Maximum Time</label>
+  <div>
+  <input type="text" class="form-control col-sm-4" placeholder="mins">
+  <input type="text" class="form-control col-sm-4" placeholder="sec">   
+  </div>
+</div>
 <router-outlet></router-outlet>

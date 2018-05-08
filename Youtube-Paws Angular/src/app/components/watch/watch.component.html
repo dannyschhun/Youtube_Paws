@@ -1,23 +1,23 @@
-<head>
-  <style>
-    /* #video1 {
-      transform: translate3d(100px, 100px, 0);
-    } */
+<div ng-controller="settings">
+  <label for="singleSelect">Customization</label>
+  <select class="form-control" name="custom" id="custom" [(ngModel)]="custom">
+    <option value="0">---Select one to Customize---</option>
+    <option value="1">Search Bar</option>
+    <option value="2">Video 1</option>
+    <option value="3">Video 2</option>
+    <option value="4">Down</option>
+  </select>
+</div>
+<div id="customization" (click)="move($event)">
 
-    #searchBar {
-      transform: translate3d(300px, 50px, 0);
-    }
-  </style>
-</head>
-<div class="container" id="customization" (click)="move($event)">
-  <div id="searchBar">
-    <input type="text" class="form-control float-left" id="search" name="search" placeholder="Search" [(ngModel)]="search">
-    <button type="submit" class="btn btn-danger">Search</button>
-  </div>
-  <div id="video1" [ngStyle]="{'transform': 'translate3d(100px, 100px, 0)'}">
-    <iframe class="youtube-player" type="text/html" width="560" height="305" [src]="sanitizer.bypassSecurityTrustResourceUrl(vidUrl)"></iframe>
-  </div>
-  <div id="video2">
-    <iframe class="youtube-player" type="text/html" width="560" height="305" [src]="sanitizer.bypassSecurityTrustResourceUrl(vidUrl)"></iframe>
-  </div>
+<div id="searchBar" [style]="sanitizer.bypassSecurityTrustStyle(searchB)">
+  <input type="text" class="form-control float-left" id="search" name="search" placeholder="Search" [(ngModel)]="search">
+  <button type="submit" class="btn btn-danger">Search</button>
+</div>
+<div id="video1" [style]="sanitizer.bypassSecurityTrustStyle(vid1Pos)">
+  <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(vidUrl)" class="youtube-player" type="text/html" width="560" height="305"></iframe>
+</div>
+<div id="video2" [style]="sanitizer.bypassSecurityTrustStyle(vid2Pos)">
+  <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(vidUrl)" class="youtube-player" type="text/html" width="560" height="305"></iframe>
+</div>
 </div>

@@ -6,7 +6,8 @@ export class User {
     viewTime: string;
     viewSettingId: number;
     pageLayoutId: number;
-    playlistId: number;
+    playlistId: number[];
     historyId: number;
     subscriptionGroupId: number;
 }
+ 
