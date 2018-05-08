@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.revature.beans.*;
+import com.revature.beans.Tags;
+import com.revature.beans.ViewSettings;
 import com.revature.services.TagsService;
 
 @Controller
