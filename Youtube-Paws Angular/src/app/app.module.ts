@@ -9,6 +9,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
 import { UserService } from './services/user.service';
 import { NavComponent } from './components/nav/nav.component';
 import { HomeComponent } from './components/home/home.component';
@@ -24,12 +25,17 @@ import { VideosService } from './services/videos.service';
     AppComponent,
     LoginComponent,
     RegisterComponent,
+<<<<<<< HEAD
+    NavComponent,
+    HomeComponent
+=======
     HomeComponent,
     NavComponent,
     SubscriptionsComponent,
     SettingsComponent,
     AftermathComponent,
     WatchComponent,
+>>>>>>> refs/remotes/origin/DevRepo
   ],
   imports: [
     BrowserModule,
