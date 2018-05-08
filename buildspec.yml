@@ -4,14 +4,11 @@ phases:
   build:
     commands:
       - echo Build started on `date`
-      - mvn install
+      - mvn test
   post_build:
     commands:
       - echo Build completed on `date`
       - mvn package
-cache:
-  paths:
-    -'/root/.m2/**/*'
 artifacts:
   files:
     - target/Youtube_Paws_Spring-0.0.1-SNAPSHOT.jar
