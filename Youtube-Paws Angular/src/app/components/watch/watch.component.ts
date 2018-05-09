@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { PageLayout } from '../../models/PageLayout';
+import { Users } from '../../models/Users';
+import { UserService } from '../../services/user.service';
 
 
 @Component({
@@ -8,6 +11,14 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./watch.component.css']
 })
 export class WatchComponent implements OnInit {
+  layoutFilled = true;
+  clayoutFilled = true;
+
+  public layout = new PageLayout();
+  public clayout = new PageLayout();
+  user = new Users;
+  loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
+
   public YT: any;
   public video1: any;
   public video2: any;
@@ -15,14 +26,14 @@ export class WatchComponent implements OnInit {
   public player1: any;
   public player2: any;
 
-  constructor(public sanitizer: DomSanitizer) { }
-  vid1Pos: String = 'transform: translate3d(400px, 200px, 0)';
-  vid2Pos: String = 'transform: translate3d(1000px, -110px, 0)';
-  searchB: String = 'transform: translate3d(850px, -100px, 0)';
+  constructor(private userService: UserService, public sanitizer: DomSanitizer) { }
+  vid1Pos = 'transform: translate3d(400px, 200px, 0)';
+  vid2Pos = 'transform: translate3d(1000px, -110px, 0)';
+  searchB = 'transform: translate3d(850px, -100px, 0)';
   vidLink: String = 'wk6gidM3k-8';
   vidUrl: String = 'http://www.youtube.com/embed/' + this.vidLink;
   imgUrl: String = '../../../assets/mytubepaws.jpg';
-  newPos: String;
+  newPos: string;
   custom: any;
 
   init() {
@@ -132,11 +143,58 @@ export class WatchComponent implements OnInit {
     }
   }
 
+  chooseLayout() {
+    let i = 0;
+
+    if (this.layout.layoutName === null) {
+      this.layoutFilled = false;
+    } else {
+
+      this.layoutFilled = true;
+
+    if (this.loggedIn) {
+      this.user = JSON.parse(localStorage.getItem('user'));
+    for (i; i < this.user.userPageLayout.length; i++) {
+      }
+      this.user.userPageLayout[i] = new PageLayout();
+      this.user.userPageLayout[i].layoutName = this.layout.layoutName;
+      this.user.userPageLayout[i].searchBarLoc = this.searchB;
+      this.user.userPageLayout[i].video1Loc = this.vid1Pos;
+      this.user.userPageLayout[i].video2Loc = this.vid2Pos;
+
+      this.userService.addPageLayout(this.user.userPageLayout[i]).subscribe(layout => {
+          console.log(layout);
+          this.user.userPageLayout[i].id = layout.id;
+          console.log(this.user.userPageLayout[i]);
+          this.userService.updateUser(this.user).subscribe(users => {
+            console.log(users);
+          });
+          localStorage.removeItem('user');
+          localStorage.setItem('user', JSON.stringify(this.user));
+      });
+    }
+  }
+}
+
+    selectLayout() {
+      let i = 0;
+      if (this.loggedIn) {
+        this.user = JSON.parse(localStorage.getItem('user'));
+        for (i; i < this.user.userPageLayout.length; i++) {
+          if (this.user.userPageLayout[i].layoutName === this.clayout.layoutName) {
+            this.searchB = this.user.userPageLayout[i].searchBarLoc;
+            this.vid1Pos = this.user.userPageLayout[i].video1Loc;
+            this.vid2Pos = this.user.userPageLayout[i].video2Loc;
+          }
+      }
+    }
+  }
 
   move(event: MouseEvent) {
     if (this.custom !== '0') {
       switch (this.custom) {
         case '1': this.newPos = 'transform: translate3d(' + (event.clientX - 138) + 'px, ' + (event.clientY - 230) + 'px, 0)';
+        console.log(this.newPos);
           this.searchB = this.newPos;
           break;
         case '2': this.newPos = 'transform: translate3d(' + (event.clientX - 278) + 'px, ' + (event.clientY - 400) + 'px, 0)';

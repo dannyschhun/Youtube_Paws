@@ -11,9 +11,9 @@
     transition: transform .3s ease-in;
   }
 
-  #player2 {
-    transition: transform .3s ease-in;
-  }
+#player2 {
+  transition: transform .3s ease-in;
+}
 
 #video1 {
     transition: transform .3s ease-in;
