@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser'
+import { Time } from '@angular/common';
 
 @Component({
   selector: 'app-watch',
@@ -8,7 +9,8 @@ import { DomSanitizer } from '@angular/platform-browser'
 })
 export class WatchComponent implements OnInit {
 
-  constructor(public sanitizer: DomSanitizer) { }
+  constructor(public sanitizer: DomSanitizer) { }ng
+
   vid1Pos: String = "transform: translate3d(400px, 200px, 0)";
   vid2Pos: String = "transform: translate3d(1000px, -110px, 0)";
   searchB: String = "transform: translate3d(850px, -100px, 0)";
@@ -19,7 +21,7 @@ export class WatchComponent implements OnInit {
   custom: any;
   ngOnInit() {
   }
-
+  
 
 
   move(event: MouseEvent) {

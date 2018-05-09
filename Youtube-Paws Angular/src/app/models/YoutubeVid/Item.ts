@@ -2,8 +2,8 @@ import { Snippet } from './Snippet';
 import { Id } from './Id';
 
 export class Item {
-    kind: String;
-    etag: String;
+    kind: string;
+    etag: string;
     id: Id;
     snippet: Snippet;
 }

@@ -1,3 +1,4 @@
+
 <div ng-controller="settings">
   <label for="singleSelect">Customization</label>
   <select class="form-control" name="custom" id="custom" [(ngModel)]="custom">
@@ -5,11 +6,11 @@
     <option value="1">Search Bar</option>
     <option value="2">Video 1</option>
     <option value="3">Video 2</option>
-    <option value="4">Down</option>
+    <option value="4">{{time | date: ("MM/dd/yyyy") }}</option>
   </select>
 </div>
 <div id="customization" (click)="move($event)">
-
+<p></p>
 <div id="searchBar" [style]="sanitizer.bypassSecurityTrustStyle(searchB)">
   <input type="text" class="form-control float-left" id="search" name="search" placeholder="Search" [(ngModel)]="search">
   <button type="submit" class="btn btn-danger">Search</button>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewSetting } from '../../models/ViewSetting';
+import { ViewService } from '../../services/view.service';
 
 @Component({
   selector: 'app-nav',
@@ -11,7 +13,17 @@ export class NavComponent implements OnInit {
   viewOpen: boolean = false;
   loggedIn: boolean = true;
   showFiller = false;
-  constructor() { }
+  minStr: string;
+  maxStr: string;
+  min: number;
+  max: number;
+  minDate: string;
+  maxDate: string;
+  
+
+  constructor(
+    private viewService: ViewService
+  ) { }
   path: any = 'assets/mytubepaws.png';
   ngOnInit() {
   }
@@ -33,4 +45,10 @@ export class NavComponent implements OnInit {
     this.viewOpen = false;
   }
 
+  //update view settings
+  viewUpdate() {
+    this.max = parseInt(this.maxStr);
+    this.min = parseInt(this.minStr);
+    this.viewService.setViewSetting(this.min, this.max, this.minDate, this.maxDate);
+  }
 }

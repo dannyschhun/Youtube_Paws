@@ -1,5 +1,7 @@
 <nav class="navbar navbar-light" style="background-color: rgb(170, 169, 169);">
-  <a class="navbar-brand" href="#"><img src="../../../assets/mytubepaws.jpg" height="80" width=auto alt="Youtube-Paws"></a>
+  <a class="navbar-brand" href="#">
+    <img src="../../../assets/mytubepaws.jpg" height="80" width=auto alt="Youtube-Paws">
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
     aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -24,31 +26,41 @@
         <a *ngIf="loggedIn" class="nav-link" routerLink="/settings">Settings</a>
       </li>
     </ul>
-        
+
   </div>
 </nav>
 
+<!-- Playlist Bar -->
 <div *ngIf="loggedIn" id="playlist" class="sidenav" [style.width]="isOpen ? '250px':'0px'">
-  <a  class="closebtn" (click)="closeNav()">&times;</a>
+  <a class="closebtn" (click)="closeNav()">&times;</a>
   <a href="#">About</a>
   <a href="#">Services</a>
   <a href="#">Clients</a>
   <a href="#">Contact</a>
 </div>
 <span *ngIf="loggedIn" style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776; Playlist</span>
-
+<!-- View Settings Bar -->
 <span *ngIf="loggedIn" style="font-size:30px;cursor:pointer; float: right;" (click)="openView()">&#9776; View Settings</span>
-<div *ngIf="loggedIn" id="view-settings" class="sidenav" [style.width]="viewOpen ? '250px':'0px'">
-  <a  class="closebtn" (click)="closeView()">&times;</a>
+<div *ngIf="loggedIn" id="view-settings" class="sidenav" [style.width]="viewOpen ? '350px':'0px'">
+  <a class="closebtn" (click)="closeView()">&times;</a>
   <label>Minimum Time</label>
   <div>
-  <input type="text" class="form-control col-sm-4" placeholder="mins">
-  <input type="text" class="form-control col-sm-4" placeholder="sec">   
+    <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="min" [(ngModel)]="minStr">
   </div>
   <label>Maximum Time</label>
   <div>
-  <input type="text" class="form-control col-sm-4" placeholder="mins">
-  <input type="text" class="form-control col-sm-4" placeholder="sec">   
+    <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="max" [(ngModel)]="maxStr">
+  </div>
+  <label>Upload Date's Between</label>
+  <div>
+    <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="yyyy-MM-dd" [(ngModel)]="minDate">
+  </div>
+  <label>To</label>
+  <div>
+    <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="yyyy-MM-dd" [(ngModel)]="maxDate">
+  </div>
+  <div>
+    <button class="btn btn-primary" id="viewUpdate" (click)="viewUpdate()">Update</button>
   </div>
 </div>
 <router-outlet></router-outlet>

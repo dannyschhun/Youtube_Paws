@@ -3,10 +3,10 @@ import { Time } from '@angular/common';
 
 export class Snippet {
     publishedAt: Time
-    channelId: String;
-    title: String;
-    description: String;
+    channelId: string;
+    title: string;
+    description: string;
     thumbnails: Thumbnails[];
-    channelTitle: String;
-    liveBroadcastContent: String;
+    channelTitle: string;
+    liveBroadcastContent: string;
 }

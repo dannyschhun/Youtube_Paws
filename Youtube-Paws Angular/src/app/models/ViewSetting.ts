@@ -4,8 +4,8 @@ export class ViewSetting {
     lengthMax: number;
     subscriberCountMin: number;
     subscriberCountMax: number;
-    uploadTimeMin: number;
-    uploadTimeMax: number;
+    uploadTimeMin: string;
+    uploadTimeMax: string;
     ratingMin: number;
     ratingMax: number;
     categoryId: number;
