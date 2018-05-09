@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/User';
+import { Users } from '../../models/Users';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 
@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  user: User = new User();
-  userCheck: User = new User();
+  user: Users = new Users();
+  userCheck: Users = new Users();
   isValid = true;
   isMatch = true;
 

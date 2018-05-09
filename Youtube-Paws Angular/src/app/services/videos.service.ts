@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject } from 'rxjs';
-import { User } from '../models/User'
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Users } from '../models/Users';
 
 
 const YOUTUBE_API = environment.youtubeUrl;

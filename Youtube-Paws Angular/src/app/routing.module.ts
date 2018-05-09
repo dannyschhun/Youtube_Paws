@@ -10,12 +10,12 @@ import { SubscriptionsComponent } from './components/subscriptions/subscriptions
 import { WatchComponent } from './components/watch/watch.component';
 
 export const routes: Routes = [
-    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent},
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'aftermath/:query', component: AftermathComponent},
-    { path: 'settings', component: SettingsComponent}, 
+    { path: 'settings', component: SettingsComponent},
     { path: 'subscriptions', component: SubscriptionsComponent },
     { path: 'watch', component: WatchComponent }
 ];
