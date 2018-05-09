@@ -14,7 +14,7 @@ export class VideosService {
     private http: HttpClient
   ) { }
 
-  Search() {
-    return this.http.get(YOUTUBE_API + 'search?part=snippet&type=video&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=call+me+kevin');
+  Search(query: String) {
+    return this.http.get(YOUTUBE_API + query);
   }
 }
