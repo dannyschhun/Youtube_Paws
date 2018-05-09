@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { User } from '../models/User';
+import { Users } from '../models/Users';
 import { environment } from '../../environments/environment';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -15,7 +15,7 @@ const HTTP_OPTIONS = {
 @Injectable()
 export class UserService {
 
-  subscribers: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  subscribers: BehaviorSubject<Users> = new BehaviorSubject<Users>(null);
   loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>((localStorage.getItem('user') !== null) ? true : false);
 
   constructor(private http: HttpClient) {
@@ -23,16 +23,17 @@ export class UserService {
     if (u !== '{}' && u !== 'undefined') {this.subscribers.next(JSON.parse(u)); }
   }
 
-  public loginUser(user: User) {
-    console.log(`Attempting to login user: ${user.username}`);
+  public loginUser(user: Users) {
+    console.log(`Attempting to login user: ${user}`);
     const json = JSON.stringify(user);
-    return this.http.post<User>(API_URL + 'login', json, HTTP_OPTIONS);
+    console.log(json);
+    return this.http.post<Users>(API_URL + 'users/login', json, HTTP_OPTIONS);
   }
 
-  public registerUser(user: User) {
-    console.log(`Attempting to register user: ${user.username}`);
+  public registerUser(user: Users) {
+    console.log(`Attempting to register user: ${user}`);
     const json = JSON.stringify(user);
-    return this.http.post<User>(API_URL + 'register', json, HTTP_OPTIONS);
+    return this.http.post<Users>(API_URL + 'users/new', json, HTTP_OPTIONS);
   }
 
   public getLoggedIn() {

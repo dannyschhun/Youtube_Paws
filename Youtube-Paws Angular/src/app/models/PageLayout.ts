@@ -1,5 +1,5 @@
 export class PageLayout {
-    pageLayoutId: number;
+    id: number;
     layoutName: string;
     searchBarLoc: string;
     video1Loc: string;

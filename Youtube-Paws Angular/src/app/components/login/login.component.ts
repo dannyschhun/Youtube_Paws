@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/User';
+import { Users } from '../../models/Users';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  user: User = new User();
+  user: Users = new Users();
   loggedUser = localStorage.getItem('user');
   isValid = true;
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PageLayout } from '../../models/PageLayout'
+import { PageLayout } from '../../models/PageLayout';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-settings',
@@ -10,7 +11,7 @@ export class SettingsComponent implements OnInit {
 
   layout: PageLayout;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
   }

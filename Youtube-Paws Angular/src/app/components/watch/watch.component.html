@@ -14,10 +14,13 @@
   <input type="text" class="form-control float-left" id="search" name="search" placeholder="Search" [(ngModel)]="search">
   <button type="submit" class="btn btn-danger">Search</button>
 </div>
-<div id="video1" [style]="sanitizer.bypassSecurityTrustStyle(vid1Pos)">
-  <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(vidUrl)" class="youtube-player" type="text/html" width="560" height="305"></iframe>
-</div>
-<div id="video2" [style]="sanitizer.bypassSecurityTrustStyle(vid2Pos)">
-  <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(vidUrl)" class="youtube-player" type="text/html" width="560" height="305"></iframe>
-</div>
+<div class="max-width-560" id="video1" [style]="sanitizer.bypassSecurityTrustStyle(vid1Pos)">
+    <div class="embed-responsive embed-responsive-16by9" id="player1">
+    </div>
+  </div>
+
+  <div class="max-width-560" id="video2" [style]="sanitizer.bypassSecurityTrustStyle(vid2Pos)">
+      <div class="embed-responsive embed-responsive-16by9" id="player2">
+      </div>
+    </div>
 </div>
