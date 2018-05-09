@@ -3,6 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { PageLayout } from '../../models/PageLayout';
 import { Users } from '../../models/Users';
 import { UserService } from '../../services/user.service';
+import { Time } from '@angular/common';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class WatchComponent implements OnInit {
   public player1: any;
   public player2: any;
 
+
   constructor(private userService: UserService, public sanitizer: DomSanitizer) { }
   vid1Pos = 'transform: translate3d(400px, 200px, 0)';
   vid2Pos = 'transform: translate3d(1000px, -110px, 0)';
@@ -34,6 +36,7 @@ export class WatchComponent implements OnInit {
   vidUrl: String = 'http://www.youtube.com/embed/' + this.vidLink;
   imgUrl: String = '../../../assets/mytubepaws.jpg';
   newPos: string;
+
   custom: any;
 
   init() {
@@ -66,6 +69,7 @@ export class WatchComponent implements OnInit {
       });
     };
   }
+
 
   onPlayerStateChange(event) {
     console.log(event);

@@ -1,11 +1,9 @@
 import { PageInfo } from "./PageInfo";
 import { Item } from "./Item";
 
-export class Youtube {
-    etag: string;
+export class VidDescription {
     kind: string;
-    nextPageToken: string;
-    regionCode: string;
+    etag: string;
     pageInfo: PageInfo;
     items: Item[];
 }
