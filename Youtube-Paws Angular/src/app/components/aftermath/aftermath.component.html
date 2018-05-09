@@ -1,6 +1,16 @@
 <div >
     <input type="text" class="form-control float-left" id="search" name="search" placeholder="Search" [(ngModel)]="search">
-    <button type="submit" class="btn btn-danger">Search</button>
+    <button type="submit" class="btn btn-danger" (click)="searched()">Search</button>
 </div>
-<p>{{query}}</p>
+<p>{{items}}</p>
 
+
+<div class="white-box">
+    <table class="table" style="width:75%">
+      <tr *ngFor="let vid of obj.items">
+        <td><img src="{{vid.snippet.thumbnails.medium.url}}"></td>
+        <td><h3>{{vid.snippet.title}}</h3><h6>{{vid.snippet.description}}</h6></td>
+
+      </tr>
+    </table>
+  </div>
