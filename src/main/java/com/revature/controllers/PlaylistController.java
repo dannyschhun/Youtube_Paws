@@ -12,6 +12,7 @@ import com.revature.services.PlaylistService;
 
 @Controller
 @RequestMapping("/playlist")
+@CrossOrigin(origins = {"https://localhost:4200"})
 public class PlaylistController {
 
 	@Autowired

@@ -12,6 +12,7 @@ import com.revature.services.HistoryService;
 
 @Controller
 @RequestMapping("/history")
+@CrossOrigin(origins = {"https://localhost:4200"})
 public class HistoryController {
 
 	@Autowired
