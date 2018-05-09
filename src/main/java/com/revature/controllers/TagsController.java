@@ -16,7 +16,7 @@ import com.revature.services.TagsService;
 
 @Controller
 @RequestMapping("/tags")
-@CrossOrigin(origins = {"https://localhost:4200"})
+@CrossOrigin
 public class TagsController{
 	
 	

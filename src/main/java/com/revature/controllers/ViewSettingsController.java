@@ -14,7 +14,7 @@ import com.revature.services.ViewSettingsService;
 
 @Controller
 @RequestMapping("/viewSettings")
-@CrossOrigin(origins = {"https://localhost:4200"})
+@CrossOrigin
 public class ViewSettingsController {
 	
 	@Autowired
