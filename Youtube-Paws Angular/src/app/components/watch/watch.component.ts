@@ -35,7 +35,7 @@ export class WatchComponent implements OnInit {
   ngOnInit() {
     this.init();
     this.video1 = '1cH2cerUpMQ'; // video id
-    this.video2 = '3OZPgzwe1eY';
+    this.video2 = '1cH2cerUpMQ';
 
     window['onYouTubeIframeAPIReady'] = () => {
       this.YT = window['YT'];
