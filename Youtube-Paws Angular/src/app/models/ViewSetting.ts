@@ -1,5 +1,9 @@
-export class ViewSetting {
-    viewSettingId: number;
+import { Tags } from './Tags';
+import { Category } from './Category';
+
+export class ViewSettings {
+    id: number;
+    viewSettingsName: string;
     lengthMin: number;
     lengthMax: number;
     subscriberCountMin: number;
@@ -8,7 +12,7 @@ export class ViewSetting {
     uploadTimeMax: string;
     ratingMin: number;
     ratingMax: number;
-    categoryId: number;
-    tagId: number;
-    excludeTagId: number;
+    settingTags: Tags[];
+    excludeTags: Tags[];
+    categories: Category[];
 }

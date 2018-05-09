@@ -1,24 +1,59 @@
 
-<div ng-controller="settings">
-  <label for="singleSelect">Customization</label>
-  <select class="form-control" name="custom" id="custom" [(ngModel)]="custom">
-    <option value="0">---Select one to Customize---</option>
-    <option value="1">Search Bar</option>
-    <option value="2">Video 1</option>
-    <option value="3">Video 2</option>
-    <option value="4">{{time | date: ("MM/dd/yyyy") }}</option>
-  </select>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <div ng-controller="settings">
+        <label for="singleSelect">Customization</label>
+        <select class="form-control" name="custom" id="custom" [(ngModel)]="custom">
+          <option value="0">---Select one to Customize---</option>
+          <option value="1">Search Bar</option>
+          <option value="2">Video 1</option>
+          <option value="3">Video 2</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <input type="text" class="form-control" id="layoutName" name="layout.layoutName" placeholder="Layout-Name" [(ngModel)]="this.layout.layoutName"
+        required>
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn" id="save" (click)="chooseLayout()">Save</button>
+      </div>
+
+      <div *ngIf="!layoutFilled" class="alert alert-danger" id="formError">
+        Must enter name!
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div>
+        <label for="cLayoutName">Use Custom Layout</label>
+        <input type="text" class="form-control" id="layoutName" name="clayout.layoutName" placeholder="Layout-Name" [(ngModel)]="this.clayout.layoutName"
+        required>
+      </div>
+      <br/>
+
+      <div>
+        <button type="submit" class="btn btn" id="save" (click)="selectLayout()">Select</button>
+      </div>
+    </div>
+  </div>
 </div>
+
 <div id="customization" (click)="move($event)">
 <p></p>
 <div id="searchBar" [style]="sanitizer.bypassSecurityTrustStyle(searchB)">
   <input type="text" class="form-control float-left" id="search" name="search" placeholder="Search" [(ngModel)]="search">
   <button type="submit" class="btn btn-danger">Search</button>
 </div>
-<div id="video1" [style]="sanitizer.bypassSecurityTrustStyle(vid1Pos)">
-  <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(vidUrl)" class="youtube-player" type="text/html" width="560" height="305"></iframe>
-</div>
-<div id="video2" [style]="sanitizer.bypassSecurityTrustStyle(vid2Pos)">
-  <iframe [src]="sanitizer.bypassSecurityTrustResourceUrl(vidUrl)" class="youtube-player" type="text/html" width="560" height="305"></iframe>
-</div>
+<div class="max-width-560" id="video1" [style]="sanitizer.bypassSecurityTrustStyle(vid1Pos)">
+    <div class="embed-responsive embed-responsive-16by9" id="player1">
+    </div>
+  </div>
+
+  <div class="max-width-560" id="video2" [style]="sanitizer.bypassSecurityTrustStyle(vid2Pos)">
+      <div class="embed-responsive embed-responsive-16by9" id="player2">
+      </div>
+    </div>
 </div>

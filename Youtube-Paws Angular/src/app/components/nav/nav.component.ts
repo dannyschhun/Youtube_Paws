@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 import { ViewSetting } from '../../models/ViewSetting';
 import { ViewService } from '../../services/view.service';
 
@@ -8,11 +10,18 @@ import { ViewService } from '../../services/view.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
- 
-  isOpen: boolean = false;
-  viewOpen: boolean = false;
-  loggedIn: boolean = true;
+
+  isOpen = false;
+  viewOpen = false;
+  loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
   showFiller = false;
+
+  constructor(private userService: UserService, private router: Router, private viewService: ViewService) {
+    this.userService.getLoggedIn().subscribe(loggedIn => {
+      this.loggedIn = loggedIn;
+    });
+  }
+
   minStr: string;
   maxStr: string;
   min: number;
@@ -21,10 +30,8 @@ export class NavComponent implements OnInit {
   maxDate: string;
   
 
-  constructor(
-    private viewService: ViewService
-  ) { }
   path: any = 'assets/mytubepaws.png';
+
   ngOnInit() {
   }
 
@@ -45,6 +52,11 @@ export class NavComponent implements OnInit {
     this.viewOpen = false;
   }
 
+  logout() {
+    localStorage.clear();
+    this.userService.loggedIn.next(false);
+    this.router.navigate(['login']);
+  }
   //update view settings
   viewUpdate() {
     this.max = parseInt(this.maxStr);

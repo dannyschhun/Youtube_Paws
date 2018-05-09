@@ -1,4 +1,4 @@
 export class Playlist {
-    PlaylistId: number;
+    playlistId: number;
     videoLink: string;
 }
