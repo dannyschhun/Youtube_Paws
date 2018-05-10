@@ -28,6 +28,8 @@
     <div class="col-md-4">
       <div>
         <label for="cLayoutName">Use Custom Layout</label>
+        <input type="text" class="form-control" id="layoutUser" name="layoutUser" placeholder="Username" [(ngModel)]="this.layoutUser.username"
+        required>
         <input type="text" class="form-control" id="layoutName" name="clayout.layoutName" placeholder="Layout-Name" [(ngModel)]="this.clayout.layoutName"
         required>
       </div>
@@ -43,7 +45,7 @@
 <div id="customization" (click)="move($event)">
 
 <div id="searchBar" [style]="sanitizer.bypassSecurityTrustStyle(searchB)">
-  <input type="text" class="form-control float-left" id="search" name="search" placeholder="Search" [(ngModel)]="search">
+  <input type="text" class="form-control float-left" id="search" name="search" placeholder="Search">
   <button type="submit" class="btn btn-danger">Search</button>
 </div>
 <div class="max-width-560" id="video1" [style]="sanitizer.bypassSecurityTrustStyle(vid1Pos)">

@@ -10,6 +10,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './watch.component.html',
   styleUrls: ['./watch.component.css']
 })
+
 export class WatchComponent implements OnInit {
   layoutFilled = true;
   clayoutFilled = true;
@@ -17,7 +18,9 @@ export class WatchComponent implements OnInit {
   public layout = new PageLayout();
   public clayout = new PageLayout();
   user = new Users;
+  layoutUser = new Users;
   loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
+  loaded: boolean = (sessionStorage.getItem('loaded') !== null) ? true : false;
 
   public YT: any;
   public video1: any;
@@ -26,9 +29,9 @@ export class WatchComponent implements OnInit {
   public player1: any;
   public player2: any;
 
-  constructor(private userService: UserService, public sanitizer: DomSanitizer) { }
-  vid1Pos = 'transform: translate3d(400px, 200px, 0)';
-  vid2Pos = 'transform: translate3d(1000px, -110px, 0)';
+  constructor(private userService: UserService, public sanitizer: DomSanitizer) {}
+  vid1Pos = 'transform: translate3d(100px, 0px, 0)';
+  vid2Pos = 'transform: translate3d(400px, 0px, 0)';
   searchB = 'transform: translate3d(850px, -100px, 0)';
   vidLink: String = 'wk6gidM3k-8';
   vidUrl: String = 'http://www.youtube.com/embed/' + this.vidLink;
@@ -48,7 +51,25 @@ export class WatchComponent implements OnInit {
     this.video1 = '1cH2cerUpMQ'; // video id
     this.video2 = '1cH2cerUpMQ';
 
-    window['onYouTubeIframeAPIReady'] = () => {
+      window['onYouTubeIframeAPIReady'] = () => {
+        this.YT = window['YT'];
+        this.player1 = new window['YT'].Player('player1', {
+          videoId: this.video1,
+          events: {
+            'onStateChange': this.onPlayerStateChange.bind(this),
+            'onError': this.onPlayerError.bind(this)
+          }
+        }),
+        this.player2 = new window['YT'].Player('player2', {
+          videoId: this.video2,
+          events: {
+            'onStateChange': this.onPlayerStateChange2.bind(this),
+            'onError': this.onPlayerError2.bind(this)
+          }
+        });
+        sessionStorage.setItem('loaded', 'true');
+      };
+
       this.YT = window['YT'];
       this.player1 = new window['YT'].Player('player1', {
         videoId: this.video1,
@@ -64,7 +85,6 @@ export class WatchComponent implements OnInit {
           'onError': this.onPlayerError2.bind(this)
         }
       });
-    };
   }
 
   onPlayerStateChange(event) {
@@ -176,31 +196,32 @@ export class WatchComponent implements OnInit {
   }
 }
 
-    selectLayout() {
-      let i = 0;
-      if (this.loggedIn) {
-        this.user = JSON.parse(localStorage.getItem('user'));
-        for (i; i < this.user.userPageLayout.length; i++) {
-          if (this.user.userPageLayout[i].layoutName === this.clayout.layoutName) {
-            this.searchB = this.user.userPageLayout[i].searchBarLoc;
-            this.vid1Pos = this.user.userPageLayout[i].video1Loc;
-            this.vid2Pos = this.user.userPageLayout[i].video2Loc;
-          }
-      }
+  selectLayout() {
+    let i = 0;
+    this.userService.getUser(this.layoutUser).subscribe(users => {
+      this.layoutUser = users;
+      console.log(JSON.stringify(users));
+      for (i; i < this.layoutUser.userPageLayout.length; i++) {
+        if (this.layoutUser.userPageLayout[i].layoutName === this.clayout.layoutName) {
+          this.searchB = this.layoutUser.userPageLayout[i].searchBarLoc;
+          this.vid1Pos = this.layoutUser.userPageLayout[i].video1Loc;
+          this.vid2Pos = this.layoutUser.userPageLayout[i].video2Loc;
+        }
     }
+  });
   }
 
   move(event: MouseEvent) {
     if (this.custom !== '0') {
       switch (this.custom) {
-        case '1': this.newPos = 'transform: translate3d(' + (event.clientX - 138) + 'px, ' + (event.clientY - 230) + 'px, 0)';
+        case '1': this.newPos = 'transform: translate3d(' + (event.clientX - 138) + 'px, ' + (event.clientY - 360) + 'px, 0)';
         console.log(this.newPos);
           this.searchB = this.newPos;
           break;
-        case '2': this.newPos = 'transform: translate3d(' + (event.clientX - 278) + 'px, ' + (event.clientY - 400) + 'px, 0)';
+        case '2': this.newPos = 'transform: translate3d(' + (event.clientX - 720) + 'px, ' + (event.clientY - 360) + 'px, 0)';
           this.vid1Pos = this.newPos;
           break;
-        case '3': this.newPos = 'transform: translate3d(' + (event.clientX - 278) + 'px, ' + (event.clientY - 720) + 'px, 0)';
+        case '3': this.newPos = 'transform: translate3d(' + (event.clientX - 720) + 'px, ' + (event.clientY - 720) + 'px, 0)';
           this.vid2Pos = this.newPos;
           break;
       }
