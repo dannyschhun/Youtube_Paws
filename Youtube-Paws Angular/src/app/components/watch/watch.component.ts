@@ -240,6 +240,7 @@ selectUser() {
           this.vid2Pos = this.newPos;
           break;
       }
+
       console.log(event.clientX + '' + event.clientY);
     }
   }

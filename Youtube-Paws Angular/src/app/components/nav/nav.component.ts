@@ -20,7 +20,7 @@ export class NavComponent implements OnInit {
   loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
   timed = false;
   showFiller = false;
-
+  
 
   constructor(private userService: UserService, private router: Router, private viewService: ViewService) {
     this.userService.getLoggedIn().subscribe(loggedIn => {
@@ -41,8 +41,10 @@ export class NavComponent implements OnInit {
   maxStr: string = this.viewSetting.lengthMax.toString();
   min: number;
   max: number;
-  minDate: string = this.viewSetting.uploadTimeMin.split('T')[0];
-  maxDate: string = this.viewSetting.uploadTimeMax.split('T')[0];
+
+  minDate: string = this.viewSetting.uploadTimeMin.split("T")[0];
+  maxDate: string = this.viewSetting.uploadTimeMax.split("T")[0];
+  
 
   path: any = 'assets/mytubepaws.png';
 
@@ -82,6 +84,7 @@ countdown() {
     this.timed = false;
     this.router.navigate(['login']);
   }
+  
   // update view settings
   viewUpdate() {
     this.max = parseInt(this.maxStr);
@@ -89,3 +92,4 @@ countdown() {
     this.viewService.setViewSetting(this.min, this.max, this.minDate, this.maxDate);
   }
 }
+
