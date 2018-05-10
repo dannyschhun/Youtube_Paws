@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.revature.beans.Subscriptions;
 import com.revature.services.SubscriptionsService;
 
+
 @Controller
 @RequestMapping("/subscriptions")
 @CrossOrigin

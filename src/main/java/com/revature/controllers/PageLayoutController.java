@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.revature.beans.PageLayout;
 import com.revature.services.PageLayoutService;
 
+/**
+ * 
+ * @author alexia
+ *
+ */
 @Controller
 @RequestMapping("/pagelayout")
 @CrossOrigin
@@ -23,17 +28,32 @@ public class PageLayoutController {
 	@Autowired
 	PageLayoutService s0;
 
+	/**
+	 * 
+	 * This method returns all the layouts stored in the MySQL Database
+	 * 
+	 * @return -> a list of PageLayout objects
+	 */
 	@RequestMapping(value="/all", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<PageLayout> getLayouts(){
 		return s0.getLayouts();
 	}
 	
+	
+	/**
+	 * 
+	 * Returns a PageLayout object based on the input integer parameter
+	 * 
+	 * @param a0 -> an integer that identifies the page layout
+	 * @return -> a PageLayout object
+	 */
 	@RequestMapping(value="/{name}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public PageLayout getLayoutByName(@PathVariable("name") int a0){
 		return s0.getLayoutById(a0);
 	}
+	
 	
 	@RequestMapping(value="/new", method=RequestMethod.POST, produces=MediaType.APPLICATION_JSON_VALUE, consumes=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
