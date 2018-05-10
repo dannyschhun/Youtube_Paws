@@ -3,6 +3,8 @@ import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { ViewSettings } from '../../models/ViewSettings';
 import { ViewService } from '../../services/view.service';
+import { timer } from 'rxjs/observable/timer';
+import { take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-nav',
@@ -10,10 +12,11 @@ import { ViewService } from '../../services/view.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-
+  countDown;
   isOpen = false;
   viewOpen = false;
   loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
+  timed = false;
   showFiller = false;
   
 
@@ -37,6 +40,15 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
 
+countdown() {
+  let count = JSON.parse(localStorage.getItem('time'));
+  count = count * 60;
+  this.timed = true;
+  this.countDown = timer(0, 1000).pipe(
+    take(count),
+    map(() => --count)
+ );
+}
 
   openNav() {
     this.isOpen = true;
@@ -55,8 +67,10 @@ export class NavComponent implements OnInit {
   }
 
   logout() {
-    localStorage.clear();
+    localStorage.removeItem('user');
+    localStorage.removeItem('time');
     this.userService.loggedIn.next(false);
+    this.timed = false;
     this.router.navigate(['login']);
   }
   //update view settings
