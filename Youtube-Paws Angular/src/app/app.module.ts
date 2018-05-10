@@ -17,6 +17,7 @@ import { SettingsComponent } from './components/settings/settings.component';
 import { AftermathComponent } from './components/aftermath/aftermath.component';
 import { WatchComponent } from './components/watch/watch.component';
 import { VideosService } from './services/videos.service';
+import { ViewService } from './services/view.service';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { VideosService } from './services/videos.service';
   ],
   providers: [
     UserService,
-    VideosService
+    VideosService,
+    ViewService
   ],
   bootstrap: [AppComponent]
 })

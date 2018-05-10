@@ -1,4 +1,4 @@
 export class Id {
-    kind: String;
-    videoId: String;
+    kind: string;
+    videoId: string;
 }
