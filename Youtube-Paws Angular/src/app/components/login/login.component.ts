@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Users } from '../../models/Users';
 import { Router } from '@angular/router';
-import { NavComponent } from '../nav/nav.component';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +10,6 @@ import { NavComponent } from '../nav/nav.component';
 })
 export class LoginComponent implements OnInit {
 
-  nav: NavComponent;
-  count: number;
   user: Users = new Users();
   loggedUser = localStorage.getItem('user');
   isValid = true;
@@ -35,7 +32,6 @@ export class LoginComponent implements OnInit {
         this.userService.loggedIn.next(true);
         localStorage.setItem('user', JSON.stringify(users));
         console.log(`User, ${this.user.username}, successfully logged in!`);
-        localStorage.setItem('time', JSON.stringify(this.count));
         this.router.navigate(['home']);
       }
     });
