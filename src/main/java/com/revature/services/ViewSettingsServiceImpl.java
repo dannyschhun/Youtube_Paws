@@ -26,7 +26,7 @@ public class ViewSettingsServiceImpl implements ViewSettingsService{
 
 	@Override
 	public ViewSettings addViewSettings(ViewSettings vs) {
-		Set<Tags> s = new HashSet<Tags>();
+		/*Set<Tags> s = new HashSet<Tags>();
 		for(Tags t: vs.getSettingTags()) {
 			List<Tags> tags = tRepo.findTagsByName(t.getName());
 			if(!tags.isEmpty()) {
@@ -55,7 +55,7 @@ public class ViewSettingsServiceImpl implements ViewSettingsService{
 		}
 		vs.setCategories(s3);
 		vs.setExcludeTags(s2);
-		vs.setSettingTags(s);
+		vs.setSettingTags(s); */
 		return vsRepo.save(vs);
 	}
 
@@ -66,7 +66,7 @@ public class ViewSettingsServiceImpl implements ViewSettingsService{
 
 	@Override
 	public ViewSettings updateViewSettings(ViewSettings vs) {
-		Set<Tags> s = new HashSet<Tags>();
+		/*Set<Tags> s = new HashSet<Tags>();
 		for(Tags t: vs.getSettingTags()) {
 			List<Tags> tags = tRepo.findTagsByName(t.getName());
 			if(!tags.isEmpty()) {
@@ -95,7 +95,7 @@ public class ViewSettingsServiceImpl implements ViewSettingsService{
 		}
 		vs.setCategories(s3);
 		vs.setExcludeTags(s2);
-		vs.setSettingTags(s);
+		vs.setSettingTags(s);*/
 		return vsRepo.save(vs);
 	}
 
