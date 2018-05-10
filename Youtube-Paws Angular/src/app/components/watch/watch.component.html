@@ -1,4 +1,4 @@
-
+<div class="panel-heading" [style.backgroundColor]="categoryColor">
 <div class="container">
   <div class="row">
     <div class="col-md-4">
@@ -17,6 +17,10 @@
         required>
       </div>
 
+      <div class="form-group">
+        <input type="color" name="favcolor" [(ngModel)]="this.categoryColor">
+      </div> 
+
       <div>
         <button type="submit" class="btn btn" id="save" (click)="chooseLayout()">Save</button>
       </div>
@@ -29,14 +33,18 @@
     <div class="col-md-4">
       <div>
         <label for="cLayoutName">Use Custom Layout</label>
-        <input type="text" class="form-control" id="layoutUser" name="layoutUser" placeholder="Username" [(ngModel)]="this.layoutUser.username"
+        <input *ngIf="!choseUser" type="text" class="form-control" id="layoutUser" name="layoutUser" placeholder="Username" [(ngModel)]="this.layoutUser.username"
         required>
-        <input type="text" class="form-control" id="layoutName" name="clayout.layoutName" placeholder="Layout-Name" [(ngModel)]="this.clayout.layoutName"
-        required>
+        <div *ngIf="!choseUser">
+            <button type="submit" class="btn btn" id="save" (click)="selectUser()">Select</button>
+          </div>
+        <select *ngIf="choseUser" class="form-control" name="choose" id="choose" [(ngModel)]="this.clayout.layoutName">
+        <option *ngFor="let x of this.layoutUser.userPageLayout">{{ x.layoutName }}</option>
+        </select>
       </div>
       <br/>
 
-      <div>
+      <div *ngIf="choseUser">
         <button type="submit" class="btn btn" id="save" (click)="selectLayout()">Select</button>
       </div>
     </div>
@@ -58,4 +66,5 @@
       <div class="embed-responsive embed-responsive-16by9" id="player2">
       </div>
     </div>
+</div>
 </div>

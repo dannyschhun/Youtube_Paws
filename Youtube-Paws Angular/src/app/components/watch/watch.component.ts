@@ -15,13 +15,15 @@ import { Time } from '@angular/common';
 export class WatchComponent implements OnInit {
   layoutFilled = true;
   clayoutFilled = true;
+  categoryColor = '#ffffff';
 
   public layout = new PageLayout();
   public clayout = new PageLayout();
   user = new Users;
   layoutUser = new Users;
   loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
-  loaded: boolean = (sessionStorage.getItem('loaded') !== null) ? true : false;
+  loaded: boolean = (localStorage.getItem('loaded') !== null) ? true : false;
+  choseUser = false;
 
   public YT: any;
   public video1: any;
@@ -30,10 +32,9 @@ export class WatchComponent implements OnInit {
   public player1: any;
   public player2: any;
 
-
-  constructor(private userService: UserService, public sanitizer: DomSanitizer) { }
-  vid1Pos = 'transform: translate3d(-457px, 131px, 0)';
-  vid2Pos = 'transform: translate3d(189px, -247px, 0)';
+  constructor(private userService: UserService, public sanitizer: DomSanitizer) {}
+  vid1Pos = 'transform: translate3d(100px, 0px, 0)';
+  vid2Pos = 'transform: translate3d(400px, 0px, 0)';
   searchB = 'transform: translate3d(850px, -100px, 0)';
   vidLink: String = 'wk6gidM3k-8';
   vidUrl: String = 'http://www.youtube.com/embed/' + this.vidLink;
@@ -54,6 +55,7 @@ export class WatchComponent implements OnInit {
     this.video1 = '1cH2cerUpMQ'; // video id
     this.video2 = '1cH2cerUpMQ';
 
+
       window['onYouTubeIframeAPIReady'] = () => {
         this.YT = window['YT'];
         this.player1 = new window['YT'].Player('player1', {
@@ -70,7 +72,7 @@ export class WatchComponent implements OnInit {
             'onError': this.onPlayerError2.bind(this)
           }
         });
-        sessionStorage.setItem('loaded', 'true');
+        localStorage.setItem('loaded', 'true');
       };
 
       this.YT = window['YT'];
@@ -182,6 +184,7 @@ export class WatchComponent implements OnInit {
       }
       this.user.userPageLayout[i] = new PageLayout();
       this.user.userPageLayout[i].layoutName = this.layout.layoutName;
+      this.user.userPageLayout[i].background = this.categoryColor;
       this.user.userPageLayout[i].searchBarLoc = this.searchB;
       this.user.userPageLayout[i].video1Loc = this.vid1Pos;
       this.user.userPageLayout[i].video2Loc = this.vid2Pos;
@@ -200,6 +203,13 @@ export class WatchComponent implements OnInit {
   }
 }
 
+selectUser() {
+  this.userService.getUser(this.layoutUser).subscribe(users => {
+    this.layoutUser = users;
+    this.choseUser = true;
+  });
+}
+
   selectLayout() {
     let i = 0;
     this.userService.getUser(this.layoutUser).subscribe(users => {
@@ -210,6 +220,7 @@ export class WatchComponent implements OnInit {
           this.searchB = this.layoutUser.userPageLayout[i].searchBarLoc;
           this.vid1Pos = this.layoutUser.userPageLayout[i].video1Loc;
           this.vid2Pos = this.layoutUser.userPageLayout[i].video2Loc;
+          this.categoryColor = this.layoutUser.userPageLayout[i].background;
         }
     }
   });
@@ -218,18 +229,18 @@ export class WatchComponent implements OnInit {
   move(event: MouseEvent) {
     if (this.custom !== '0') {
       switch (this.custom) {
-        case '1': this.newPos = 'transform: translate3d(' + (event.clientX - 138) + 'px, ' + (event.clientY - 330) + 'px, 0)';
+        case '1': this.newPos = 'transform: translate3d(' + (event.clientX - 138) + 'px, ' + (event.clientY - 360) + 'px, 0)';
         console.log(this.newPos);
           this.searchB = this.newPos;
           break;
-        case '2': this.newPos = 'transform: translate3d(' + (event.clientX - 970) + 'px, ' + (event.clientY - 580) + 'px, 0)';
+        case '2': this.newPos = 'transform: translate3d(' + (event.clientX - 720) + 'px, ' + (event.clientY - 360) + 'px, 0)';
           this.vid1Pos = this.newPos;
           break;
-        case '3': this.newPos = 'transform: translate3d(' + (event.clientX - 970) + 'px, ' + (event.clientY - 900) + 'px, 0)';
+        case '3': this.newPos = 'transform: translate3d(' + (event.clientX - 720) + 'px, ' + (event.clientY - 720) + 'px, 0)';
           this.vid2Pos = this.newPos;
           break;
       }
-      console.log(event.clientX +" " + event.clientY)
+      console.log(event.clientX + '' + event.clientY);
     }
   }
 }

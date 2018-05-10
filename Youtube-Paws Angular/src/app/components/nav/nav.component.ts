@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-import { timer } from 'rxjs/observable/timer';
-import { take, map } from 'rxjs/operators';
 import { ViewSettings } from '../../models/ViewSettings';
 import { ViewService } from '../../services/view.service';
+import { timer } from 'rxjs/observable/timer';
+import { take, map } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-nav',
@@ -12,17 +13,26 @@ import { ViewService } from '../../services/view.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  countDown;
+  countDown: Observable<number> = null;
+  count;
   isOpen = false;
   viewOpen = false;
   loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
   timed = false;
   showFiller = false;
-  
+
 
   constructor(private userService: UserService, private router: Router, private viewService: ViewService) {
     this.userService.getLoggedIn().subscribe(loggedIn => {
       this.loggedIn = loggedIn;
+      if (loggedIn) {
+        this.countdown();
+        this.countDown.subscribe(zero => {
+          if (this.count === 0) {
+            this.logout();
+          }
+        });
+      }
     });
   }
 
@@ -31,9 +41,8 @@ export class NavComponent implements OnInit {
   maxStr: string = this.viewSetting.lengthMax.toString();
   min: number;
   max: number;
-  minDate: string = this.viewSetting.uploadTimeMin.split("T")[0];
-  maxDate: string = this.viewSetting.uploadTimeMax.split("T")[0];
-  
+  minDate: string = this.viewSetting.uploadTimeMin.split('T')[0];
+  maxDate: string = this.viewSetting.uploadTimeMax.split('T')[0];
 
   path: any = 'assets/mytubepaws.png';
 
@@ -41,12 +50,12 @@ export class NavComponent implements OnInit {
   }
 
 countdown() {
-  let count = JSON.parse(localStorage.getItem('time'));
-  count = count * 60;
+  this.count = JSON.parse(localStorage.getItem('time'));
+  this.count = this.count * 60;
   this.timed = true;
   this.countDown = timer(0, 1000).pipe(
-    take(count),
-    map(() => --count)
+    take(this.count),
+    map(() => --this.count)
  );
 }
 
@@ -73,10 +82,10 @@ countdown() {
     this.timed = false;
     this.router.navigate(['login']);
   }
-  //update view settings
+  // update view settings
   viewUpdate() {
     this.max = parseInt(this.maxStr);
     this.min = parseInt(this.minStr);
     this.viewService.setViewSetting(this.min, this.max, this.minDate, this.maxDate);
   }
-}         
+}
