@@ -33,8 +33,8 @@ public class Users implements Serializable{
 	@Column(name = "USER_RANK")
 	private Integer rank;
 
-	
-	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+	//changing fetch type to lazy
+	@ManyToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinTable(
 			name="USERS_VS",
 			joinColumns=@JoinColumn(name="USERS_ID"),
