@@ -18,6 +18,9 @@ export class VideosService {
     return this.http.get(YOUTUBE_API + query + key)
   }
 
+  SortVideoTime(){
+    
+  }
   
 
   Search(query: String) {

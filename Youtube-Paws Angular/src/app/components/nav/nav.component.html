@@ -42,6 +42,7 @@
   <a href="#">Contact</a>
 </div>
 <span *ngIf="loggedIn" style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776; Playlist</span>
+
 <!-- View Settings Bar -->
 <span *ngIf="loggedIn" style="font-size:30px;cursor:pointer; float: right;" (click)="openView()">&#9776; View Settings</span>
 <div *ngIf="loggedIn" id="view-settings" class="sidenav" [style.width]="viewOpen ? '350px':'0px'">
@@ -66,4 +67,5 @@
     <button class="btn btn-primary" id="viewUpdate" (click)="viewUpdate()">Update</button>
   </div>
 </div>
+<!-- ///////////////////////////////////////////////////////// -->
 <router-outlet></router-outlet>
