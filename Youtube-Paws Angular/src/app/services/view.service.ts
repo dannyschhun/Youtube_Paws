@@ -6,10 +6,11 @@ import { Tags } from '../models/Tags'
 export class ViewService {
 
   tag: Tags = { id: 0, name: "null" }
-  viewSetting: ViewSettings = { id: 1, viewSettingsName: "", lengthMax: 2, lengthMin: 1, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"0", uploadTimeMin:"0", ratingMin:0, ratingMax:0,categories: {id:1, name:"null"}[0], settingTags: {id: 1, name: "null"}[0], excludeTags: {id: 1, name: "null"}[0]};
   timeString: string = "T19:00:01.000Z";
+  viewSetting: ViewSettings
 
   constructor() {
+  this.viewSetting = { id: 1, viewSettingsName: "", lengthMax: 50, lengthMin: 25, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"2007-05-12T19:00:01.000Z", uploadTimeMin:"2018-05-08T19:00:01.000Z", ratingMin:0, ratingMax:0,categories: {id:1, name:"null"}[0], settingTags: {id: 1, name: "null"}[0], excludeTags: {id: 1, name: "null"}[0]};
 
   }
 
