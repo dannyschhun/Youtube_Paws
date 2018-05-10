@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ViewSetting } from '../models/ViewSetting';
+import { ViewSettings } from '../models/ViewSettings';
+import { Tags } from '../models/Tags'
 
 @Injectable()
 export class ViewService {
 
-  viewSetting: ViewSetting = { viewSettingId: 1, lengthMax: 2, lengthMin: 1, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"0", uploadTimeMin:"0", ratingMin:0, ratingMax:0,categoryId:0, tagId:0, excludeTagId:0};
+  tag: Tags = { id: 0, name: "null" }
+  viewSetting: ViewSettings = { id: 1, viewSettingsName: "", lengthMax: 2, lengthMin: 1, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"0", uploadTimeMin:"0", ratingMin:0, ratingMax:0,categories: {id:1, name:"null"}[0], settingTags: {id: 1, name: "null"}[0], excludeTags: {id: 1, name: "null"}[0]};
   timeString: string = "T19:00:01.000Z";
-  
-  constructor() { 
-   
+
+  constructor() {
+
   }
 
   setViewSetting(min: number, max: number, minDate: string, maxDate: string) {
@@ -19,7 +21,6 @@ export class ViewService {
   }
 
   getViewSetting() {
-    return this.viewSetting;
+      return this.viewSetting;
   }
 }
- 
