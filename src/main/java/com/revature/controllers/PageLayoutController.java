@@ -17,7 +17,7 @@ import com.revature.services.PageLayoutService;
 
 @Controller
 @RequestMapping("/pagelayout")
-@CrossOrigin(origins = {"https://localhost:4200"})
+@CrossOrigin
 public class PageLayoutController {
 	
 	@Autowired
