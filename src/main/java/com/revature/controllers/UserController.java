@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import com.revature.beans.*;
 import com.revature.services.UserService;
 
+/**
+ * 
+ * @author myles
+ *
+ */
+
 @Controller
 @RequestMapping("/users")
 @CrossOrigin
@@ -40,6 +46,12 @@ public class UserController {
 	public Users findUserById(@PathVariable("id") Integer id) {
 		//System.out.println("This is my id:" +id);
 		return userService.findUsersById(id);
+	}
+	
+	@RequestMapping(value="/{name}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Users findUserByName(@PathVariable("name") String a0) {
+		return userService.findUsersByUsername(a0);
 	}
 	
 	@RequestMapping(value="/everybody",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)

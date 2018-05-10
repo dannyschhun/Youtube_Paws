@@ -42,6 +42,12 @@ public class UserServiceImpl implements UserService{
 //		System.out.println(userRepo.getOne(id));
 		return (Users) userRepo.getOne(id);
 	}
+	
+	@Override
+	public Users findUsersByUsername(String username) {
+		List<Users> t0 = userRepo.findUsersByUsername(username);
+		return t0.get(0);
+	}
 
 
 	@Override
@@ -92,6 +98,8 @@ public class UserServiceImpl implements UserService{
 	public List<ViewSettings> getUserViewSettings(Users user) {
 		return user.getUserViewSettings();
 	}
+
+	
 
 	
 

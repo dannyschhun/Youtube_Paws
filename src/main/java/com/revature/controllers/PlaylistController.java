@@ -30,6 +30,12 @@ public class PlaylistController {
 		s0.deletePlaylist(a0);
 	}
 	
+	
+	/**
+	 * 
+	 * @param a0 -> an integer parameter
+	 * @return -> a list of Playlist objects
+	 */
 	@RequestMapping(value="/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public List<Playlist> findByPlaylistId(@PathVariable("id") Integer a0) {

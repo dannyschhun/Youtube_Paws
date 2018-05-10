@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import com.revature.beans.ViewSettings;
 import com.revature.services.ViewSettingsService;
 
+/**
+ * 
+ * @author danny
+ *
+ */
+
 @Controller
 @RequestMapping("/viewSettings")
 @CrossOrigin
