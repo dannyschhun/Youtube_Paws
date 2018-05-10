@@ -1,0 +1,19 @@
+#searchBar {
+    height:  500px;
+}
+
+#searchForm {
+    padding-top: 75px;
+}
+
+#searchBtn {
+    padding-left: 38px;
+}
+
+#formText {
+    padding-right: 25px;
+}
+
+#bg-text {
+    font-size: 100px;
+}

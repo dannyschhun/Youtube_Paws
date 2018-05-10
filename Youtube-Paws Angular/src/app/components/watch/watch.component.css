@@ -1,0 +1,20 @@
+.form-control {
+    width: 200px;
+}
+
+#video1 {
+    transition: transform .3s ease-in;
+  }
+
+#video2 {
+    transition: transform .3s ease-in;
+  }
+
+#searchBar {
+    transition: transform .3s ease-in;
+  }
+
+/* #customization {
+    border-style: solid;
+    border-width: 5px;
+} */
