@@ -39,10 +39,12 @@ export class UserService {
   }
 
   public updateUser(user: Users) {
-    console.log(`Attempting to update user: ${user}`);
     const json = JSON.stringify(user);
-    console.log(json);
     return this.http.put<Users>(API_URL + 'users/update', json, HTTP_OPTIONS);
+  }
+
+  public getUser(user: Users) {
+    return this.http.get<Users>(API_URL + `users/byName/${user.username}`, HTTP_OPTIONS);
   }
 
   public addPageLayout(pl: PageLayout) {
