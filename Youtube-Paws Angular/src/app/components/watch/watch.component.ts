@@ -30,16 +30,10 @@ export class WatchComponent implements OnInit {
   public player1: any;
   public player2: any;
 
-<<<<<<< HEAD
-  constructor(private userService: UserService, public sanitizer: DomSanitizer) {}
-  vid1Pos = 'transform: translate3d(100px, 0px, 0)';
-  vid2Pos = 'transform: translate3d(400px, 0px, 0)';
-=======
 
   constructor(private userService: UserService, public sanitizer: DomSanitizer) { }
   vid1Pos = 'transform: translate3d(-457px, 131px, 0)';
   vid2Pos = 'transform: translate3d(189px, -247px, 0)';
->>>>>>> refs/remotes/origin/DevRepo
   searchB = 'transform: translate3d(850px, -100px, 0)';
   vidLink: String = 'wk6gidM3k-8';
   vidUrl: String = 'http://www.youtube.com/embed/' + this.vidLink;
@@ -224,16 +218,6 @@ export class WatchComponent implements OnInit {
   move(event: MouseEvent) {
     if (this.custom !== '0') {
       switch (this.custom) {
-<<<<<<< HEAD
-        case '1': this.newPos = 'transform: translate3d(' + (event.clientX - 138) + 'px, ' + (event.clientY - 360) + 'px, 0)';
-        console.log(this.newPos);
-          this.searchB = this.newPos;
-          break;
-        case '2': this.newPos = 'transform: translate3d(' + (event.clientX - 720) + 'px, ' + (event.clientY - 360) + 'px, 0)';
-          this.vid1Pos = this.newPos;
-          break;
-        case '3': this.newPos = 'transform: translate3d(' + (event.clientX - 720) + 'px, ' + (event.clientY - 720) + 'px, 0)';
-=======
         case '1': this.newPos = 'transform: translate3d(' + (event.clientX - 138) + 'px, ' + (event.clientY - 330) + 'px, 0)';
         console.log(this.newPos);
           this.searchB = this.newPos;
@@ -242,7 +226,6 @@ export class WatchComponent implements OnInit {
           this.vid1Pos = this.newPos;
           break;
         case '3': this.newPos = 'transform: translate3d(' + (event.clientX - 970) + 'px, ' + (event.clientY - 900) + 'px, 0)';
->>>>>>> refs/remotes/origin/DevRepo
           this.vid2Pos = this.newPos;
           break;
       }

@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
-<<<<<<< HEAD
 import { timer } from 'rxjs/observable/timer';
 import { take, map } from 'rxjs/operators';
-=======
 import { ViewSettings } from '../../models/ViewSettings';
 import { ViewService } from '../../services/view.service';
->>>>>>> refs/remotes/origin/DevRepo
 
 @Component({
   selector: 'app-nav',
