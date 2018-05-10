@@ -48,7 +48,7 @@ public class UserController {
 		return userService.findUsersById(id);
 	}
 	
-	@RequestMapping(value="/{name}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/byName/{name}",method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	@ResponseBody
 	public Users findUserByName(@PathVariable("name") String a0) {
 		return userService.findUsersByUsername(a0);
