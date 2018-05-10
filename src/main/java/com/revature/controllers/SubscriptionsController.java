@@ -19,7 +19,7 @@ import com.revature.services.SubscriptionsService;
 
 @Controller
 @RequestMapping("/subscriptions")
-@CrossOrigin(origins = {"https://localhost:4200"})
+@CrossOrigin
 public class SubscriptionsController {
 	
 	
