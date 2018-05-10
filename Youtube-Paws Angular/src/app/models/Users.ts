@@ -1,4 +1,4 @@
-import { ViewSettings } from './ViewSetting';
+import { ViewSettings } from './ViewSettings';
 import { PageLayout } from './PageLayout';
 import { History } from './History';
 import { Playlist } from './Playlist';

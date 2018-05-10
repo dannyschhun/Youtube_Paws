@@ -4,7 +4,7 @@ import { VideosService } from '../../services/videos.service';
 import { Item } from '../../models/YoutubeVid/Item';
 import { Youtube } from '../../models/YoutubeVid/Youtube';
 import { VidDescription } from '../../models/VidDetail/VidDescription';
-import { ViewSetting } from '../../models/ViewSetting';
+import { ViewSettings } from '../../models/ViewSettings';
 import { ViewService } from '../../services/view.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class AftermathComponent implements OnInit {
   search: string;
   obj: Youtube;
   vidDescription: VidDescription;
-  viewSetting: ViewSetting = this.viewService.getViewSetting();
+  viewSetting: ViewSettings = this.viewService.getViewSetting();
 
   constructor(
     private route: ActivatedRoute,
