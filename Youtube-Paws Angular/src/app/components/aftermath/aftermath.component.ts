@@ -21,7 +21,7 @@ export class AftermathComponent implements OnInit {
   search: string;
   obj: Youtube;
   vidDescription: VidDescription;
-  viewSetting: ViewSettings = this.viewService.getViewSetting();
+  viewSetting: ViewSettings = { id: 1, viewSettingsName: "", lengthMax: 12, lengthMin: 6, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"2007-05-12T19:00:01.000Z", uploadTimeMin:"2018-05-08T19:00:01.000Z", ratingMin:0, ratingMax:0,categories: {id:1, name:"null"}[0], settingTags: {id: 1, name: "null"}[0], excludeTags: {id: 1, name: "null"}[0]}; 
 
   constructor(
     private route: ActivatedRoute,
