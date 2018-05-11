@@ -149,6 +149,7 @@ countdown() {
     });
   }
 
+
   changeSet(index: number) {
     this.maxStr = this.loggedUser.userViewSettings[index].lengthMax.toString();
     this.minStr = this.loggedUser.userViewSettings[index].lengthMin.toString();

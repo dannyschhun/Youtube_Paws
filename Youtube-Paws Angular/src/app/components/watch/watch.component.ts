@@ -38,10 +38,13 @@ export class WatchComponent implements OnInit {
   public player2: any;
 
 constructor(private userService: UserService, public sanitizer: DomSanitizer, public route: ActivatedRoute, public router: Router, private httpClient: HttpClient) {
+
     if (!this.loggedIn) {
       this.router.navigate(['login']);
     }
 }
+
+
 
   vid1Pos = 'transform: translate3d(100px, 0px, 0)';
   vid2Pos = 'transform: translate3d(400px, 0px, 0)';
