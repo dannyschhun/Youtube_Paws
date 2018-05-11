@@ -77,3 +77,11 @@
     float: left;
     margin-left: 10px;
 }
+
+#viewIndex {
+    width: 190px;
+}
+
+#playText {
+    font-size: 1em;
+}

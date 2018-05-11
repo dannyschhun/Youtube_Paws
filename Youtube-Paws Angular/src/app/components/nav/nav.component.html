@@ -15,25 +15,25 @@
       </li>
       <li class="nav-item">
 
-      <li class="nav-item">
-        <a *ngIf="loggedIn" class="nav-link" routerLink="/subscriptions">Subscriptions</a>
-      </li>
-      <li class="nav-item">
-        <a *ngIf="!loggedIn" class="nav-link" routerLink="/login">Login</a>
-      </li>
-      <li class="nav-item">
-        <a *ngIf="!loggedIn" class="nav-link" routerLink="/register">Register</a>
-      </li>
-      <li class="nav-item">
-        <a *ngIf="loggedIn" class="nav-link" routerLink="/settings">Settings</a>
-      </li>
-      <li class="nav-item">
+        <li class="nav-item">
+          <a *ngIf="loggedIn" class="nav-link" routerLink="/subscriptions">Subscriptions</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="!loggedIn" class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="!loggedIn" class="nav-link" routerLink="/register">Register</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="loggedIn" class="nav-link" routerLink="/settings">Settings</a>
+        </li>
+        <li class="nav-item">
           <a *ngIf="timed" class="nav-link">{{ count }} </a>
         </li>
 
-      <li class="nav-item">
-        <a *ngIf="loggedIn" class="nav-link" routerLink="" (click)="logout()">Logout</a>
-      </li>
+        <li class="nav-item">
+          <a *ngIf="loggedIn" class="nav-link" routerLink="" (click)="logout()">Logout</a>
+        </li>
     </ul>
 
   </div>
@@ -42,10 +42,27 @@
 <!-- Playlist Bar -->
 <div *ngIf="loggedIn" id="playlist" class="sidenav" [style.width]="isOpen ? '250px':'0px'">
   <a class="closebtn" (click)="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+  <table class="table">
+    <th>PlayList</th>
+    <tr>
+      <td>
+        <img src="https://i.ytimg.com/vi/yuH1M5-a8aI/default.jpg">
+      </td>
+    </tr>
+    <tr>Shohei Ohtani wins April 2018 AL Rookie of the Month</tr>
+    <tr>
+      <td>
+        <img src="https://i.ytimg.com/vi/rAByA1QSJhc/default.jpg">
+      </td>
+    </tr>
+    <tr>Barcelona vs Real Madrid 2-2 - Season 2017/2018 All Goals And Full Highlights HD</tr>
+    <tr>
+      <td>
+        <img src="https://i.ytimg.com/vi/dOsmdlDfbXw/default.jpg">
+      </td>
+    </tr>
+    <tr>RWBY Vol.3 - Funny Moments [Spoilers]</tr>
+  </table>
 </div>
 <span *ngIf="loggedIn" style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776; Playlist</span>
 
@@ -56,7 +73,8 @@
   <!-- <h3>{{loggedUser.userViewSettings[0].viewSettingsName}}</h3> -->
   <span ng-controller="settings" *ngIf="loggedUser.userViewSettings.length != 0">
     <div>
-      <label for="singleSelect">Customization</label>
+      <label for="singleSelect" style="font-size: 1cm">View Settings</label>
+      <br>
       <select class="form-control" name="viewIndex" id="viewIndex" [(ngModel)]="viewIndex">
         <option *ngFor="let views of loggedUser.userViewSettings; let i = index" value={{i}}>{{ views.viewSettingsName }}</option>
       </select>
@@ -70,22 +88,26 @@
   <div>
     <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="min" [(ngModel)]="minStr">
   </div>
+  <br>
+  <br>
   <label>Maximum Time</label>
   <div>
     <input type="text" id="maxDuration" class="form-control col-sm-4" placeholder="max" [(ngModel)]="maxStr">
   </div>
+  <br>
+  <br>
   <label>Upload Date's Between</label>
-  <div>
+  <div class="row">
     <input type="text" id="minDate" class="form-control col-sm-4" placeholder="yyyy-MM-dd" [(ngModel)]="minDate">
-  </div>
-  <label>To</label>
-  <div>
+    <span style="padding-left: 5px">To</span>
     <input type="text" id="maxDate" class="form-control col-sm-4" placeholder="yyyy-MM-dd" [(ngModel)]="maxDate">
   </div>
   <div>
+    <br>
     <button class="btn btn-primary" id="viewUpdate" (click)="viewUpdate()">Update</button>
   </div>
   <div>
+    <br>
     <input type="text" id="playlistName" class="form-control col-sm-4" placeholder="Playlist Name" [(ngModel)]="viewName" required>
   </div>
   <button class="btn btn-primary" id="newPlaylist" (click)="newPlaylist()">New</button>
