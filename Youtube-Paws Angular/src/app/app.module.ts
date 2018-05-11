@@ -12,12 +12,12 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { UserService } from './services/user.service';
 import { NavComponent } from './components/nav/nav.component';
-import { HomeComponent } from './components/home/home.component';
 import { SubscriptionsComponent } from './components/subscriptions/subscriptions.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { AftermathComponent } from './components/aftermath/aftermath.component';
 import { WatchComponent } from './components/watch/watch.component';
 import { VideosService } from './services/videos.service';
+import { ViewService } from './services/view.service';
 
 
 @NgModule({
@@ -25,17 +25,13 @@ import { VideosService } from './services/videos.service';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-<<<<<<< HEAD
     NavComponent,
-    HomeComponent
-=======
     HomeComponent,
     NavComponent,
     SubscriptionsComponent,
     SettingsComponent,
     AftermathComponent,
     WatchComponent,
->>>>>>> refs/remotes/origin/DevRepo
   ],
   imports: [
     BrowserModule,
@@ -49,7 +45,8 @@ import { VideosService } from './services/videos.service';
   ],
   providers: [
     UserService,
-    VideosService
+    VideosService,
+    ViewService
   ],
   bootstrap: [AppComponent]
 })

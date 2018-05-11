@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/User';
+import { Users } from '../../models/Users';
 import { Router } from '@angular/router';
+import { NavComponent } from '../nav/nav.component';
 
 @Component({
   selector: 'app-login',
@@ -10,17 +11,19 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  user: User = new User();
+  nav: NavComponent;
+  count: number;
+  user: Users = new Users();
   loggedUser = localStorage.getItem('user');
   isValid = true;
 
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    // if (this.loggedUser != null) {
-    //   this.userService.subscribers.next(JSON.parse(localStorage.getItem('user')));
-    //   this.router.navigate(['home']);
-    // }
+    if (this.loggedUser != null) {
+      this.userService.subscribers.next(JSON.parse(localStorage.getItem('user')));
+      this.router.navigate(['home']);
+    }
   }
 
   login() {
@@ -29,10 +32,10 @@ export class LoginComponent implements OnInit {
         this.isValid = !this.isValid;
       } else {
         this.userService.subscribers.next(users);
-        this.userService.loggedIn.next(true);
+        localStorage.setItem('time', JSON.stringify(this.count));
         localStorage.setItem('user', JSON.stringify(users));
+        this.userService.loggedIn.next(true);
         console.log(`User, ${this.user.username}, successfully logged in!`);
-        console.log(localStorage.getItem('user'));
         this.router.navigate(['home']);
       }
     });
