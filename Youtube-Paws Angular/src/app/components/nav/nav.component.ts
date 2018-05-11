@@ -26,8 +26,8 @@ export class NavComponent implements OnInit {
   loggedUser: Users = JSON.parse(localStorage.getItem('user'));
   tag: Tags = {id: 1, name: "none"};
   category: Category = {categoryId: 1, categoryName: "none"};
-  viewSettingsTemp: ViewSettings = { id: null, viewSettingsName: "Playlist", lengthMax: 12, lengthMin: 6, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"2007-05-12T19:00:01.000Z", uploadTimeMin:"2018-05-08T19:00:01.000Z", ratingMin:0, ratingMax:0,categories: [this.category] , settingTags: [this.tag], excludeTags: [this.tag] };
-  
+  viewSettingsTemp: ViewSettings = { id: null, viewSettingsName: "Playlist", lengthMax: 12, lengthMin: 6, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"2007-05-12T19:00:01.000Z", uploadTimeMin:"2018-05-08T19:00:01.000Z", ratingMin:0, ratingMax:0,categories: [null] , settingTags: [null], excludeTags: [null] };
+  viewIndex: number;
 
   constructor(private userService: UserService, private router: Router, private viewService: ViewService) {
     this.userService.getLoggedIn().subscribe(loggedIn => {
@@ -39,32 +39,34 @@ export class NavComponent implements OnInit {
             this.logout();
           }
         });
-        
-      console.log(this.loggedUser)
-      if(this.loggedUser.userViewSettings.length == 0) {
-        this.minStr = "6";
-        this.maxStr = "12";
-        this.minDate = "2007-05-12";
-        this.maxDate = "2018-05-08";
-      } else {
-        this.minStr = this.loggedUser.userViewSettings[0].lengthMin.toString();
-        this.maxStr = this.loggedUser.userViewSettings[0].lengthMax.toString();
-        this.minDate = this.loggedUser.userViewSettings[0].uploadTimeMin.split("T")[0];
-        this.maxDate = this.loggedUser.userViewSettings[0].uploadTimeMax.split("T")[0];
-      }
-    });
-    console.log(this.loggedUser);
-  }
 
-  
-  minStr: string;
+        
+        this.loggedUser = JSON.parse(localStorage.getItem('user'));
+        console.log(this.loggedUser);
+        if (this.loggedUser.userViewSettings.length === 0) {
+          this.minStr = "6";
+          this.maxStr = "12";
+          this.minDate = "2007-05-12";
+          this.maxDate = "2018-05-08";
+        } else {
+          this.minStr = this.loggedUser.userViewSettings[0].lengthMin.toString();
+          this.maxStr = this.loggedUser.userViewSettings[0].lengthMax.toString();
+          this.minDate = this.loggedUser.userViewSettings[0].uploadTimeMin.split("T")[0];
+          this.maxDate = this.loggedUser.userViewSettings[0].uploadTimeMax.split("T")[0];
+        }
+      }
+      });
+
+    }
+
+    minStr: string;
   maxStr: string;
   min: number;
   max: number;
   minDate: string;
   maxDate: string;
   viewName: string;
-  
+
 
   path: any = 'assets/mytubepaws.png';
 
@@ -104,17 +106,26 @@ countdown() {
     this.timed = false;
     this.router.navigate(['login']);
   }
-  
+
   // update view settings
   viewUpdate() {
+    console.log("View index is: " + this.viewIndex);
     this.max = parseInt(this.maxStr);
     this.min = parseInt(this.minStr);
-    this.viewSettingsTemp.lengthMax = this.max;
-    this.viewSettingsTemp.lengthMin = this.min;
-    this.viewSettingsTemp.uploadTimeMin = this.minDate;
-    this.viewSettingsTemp.uploadTimeMax = this.maxDate;
+    this.loggedUser.userViewSettings[this.viewIndex].lengthMax = this.max;
+    this.loggedUser.userViewSettings[this.viewIndex].lengthMin = this.min;
+    this.loggedUser.userViewSettings[this.viewIndex].uploadTimeMin = this.minDate;
+    this.loggedUser.userViewSettings[this.viewIndex].uploadTimeMax = this.maxDate;
     console.log(this.viewSettingsTemp);
-    this.viewService.updateViewSetting(this.viewSettingsTemp);
+    console.log(this.loggedUser.userViewSettings[this.viewIndex]);
+    this.viewService.updateViewSetting(this.loggedUser.userViewSettings[this.viewIndex]).subscribe(updateView => {
+      console.log(updateView);
+      this.userService.updateUser(this.loggedUser).subscribe(user => {
+        console.log(user);
+      })
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify(this.loggedUser));
+    });
 
   }
 
@@ -132,10 +143,17 @@ countdown() {
       this.loggedUser.userViewSettings.push(newView);
       this.userService.updateUser(this.loggedUser).subscribe(users => {
         console.log(users);
-      })
+      });
       localStorage.removeItem('user');
-      localStorage.setItem('user', JSON.stringify(this.loggedUser))
+      localStorage.setItem('user', JSON.stringify(this.loggedUser));
     });
   }
-}
 
+  changeSet(index: number) {
+    this.maxStr = this.loggedUser.userViewSettings[index].lengthMax.toString();
+    this.minStr = this.loggedUser.userViewSettings[index].lengthMin.toString();
+    this.loggedUser.userViewSettings[index].uploadTimeMin = this.minDate;
+    this.loggedUser.userViewSettings[index].uploadTimeMax = this.maxDate;
+    this.viewService.changeViewSetting(index);
+  }
+}

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter, Output } from '@angular/core';
 import { ViewSettings } from '../models/ViewSettings';
 import { Tags } from '../models/Tags'
 import { environment } from '../../environments/environment.prod';
@@ -20,7 +20,7 @@ export class ViewService {
   timeString: string = "T19:00:01.000Z";
 
   subscribers: BehaviorSubject<ViewSettings> = new BehaviorSubject<ViewSettings>(null);
-
+  @Output() index: BehaviorSubject<number> = new BehaviorSubject<number>(null);
 
   constructor(private http: HttpClient) {
 
@@ -28,12 +28,15 @@ export class ViewService {
 
   updateViewSetting(updateView: ViewSettings) {
     console.log(updateView);
+    const json = JSON.stringify(updateView);
+    return this.http.put<ViewSettings>(API_URL + 'viewSettings/update', json, HTTP_OPTIONS);
   }
 
-  getViewSetting() {
-      
+  changeViewSetting(index: number) {
+      this.index.next(index);
   }
 
+  
   newViewSetting(newView: ViewSettings) {
     console.log("This is newView: " + newView);
     const json = JSON.stringify(newView);
