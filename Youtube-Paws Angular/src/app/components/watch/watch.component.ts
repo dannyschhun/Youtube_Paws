@@ -273,14 +273,14 @@ selectUser() {
   move(event: MouseEvent) {
     if (this.custom !== '0') {
       switch (this.custom) {
-        case '1': this.newPos = 'transform: translate3d(' + (event.clientX - 138) + 'px, ' + (event.clientY - 360) + 'px, 0)';
+        case '1': this.newPos = 'transform: translate3d(' + (event.clientX - 138) + 'px, ' + (event.clientY - 400) + 'px, 0)';
         console.log(this.newPos);
           this.searchB = this.newPos;
           break;
-        case '2': this.newPos = 'transform: translate3d(' + (event.clientX - 720) + 'px, ' + (event.clientY - 360) + 'px, 0)';
+        case '2': this.newPos = 'transform: translate3d(' + (event.clientX - 930) + 'px, ' + (event.clientY - 600) + 'px, 0)';
           this.vid1Pos = this.newPos;
           break;
-        case '3': this.newPos = 'transform: translate3d(' + (event.clientX - 720) + 'px, ' + (event.clientY - 720) + 'px, 0)';
+        case '3': this.newPos = 'transform: translate3d(' + (event.clientX - 930) + 'px, ' + (event.clientY - 980) + 'px, 0)';
           this.vid2Pos = this.newPos;
           break;
       }
