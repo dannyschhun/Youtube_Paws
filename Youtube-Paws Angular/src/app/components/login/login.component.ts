@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    // if (this.loggedUser != null) {
-    //   this.userService.subscribers.next(JSON.parse(localStorage.getItem('user')));
-    //   this.router.navigate(['home']);
-    // }
+    if (this.loggedUser != null) {
+      this.userService.subscribers.next(JSON.parse(localStorage.getItem('user')));
+      this.router.navigate(['home']);
+    }
   }
 
   login() {
@@ -32,10 +32,10 @@ export class LoginComponent implements OnInit {
         this.isValid = !this.isValid;
       } else {
         this.userService.subscribers.next(users);
+        localStorage.setItem('time', JSON.stringify(this.count));
         this.userService.loggedIn.next(true);
         localStorage.setItem('user', JSON.stringify(users));
         console.log(`User, ${this.user.username}, successfully logged in!`);
-        localStorage.setItem('time', JSON.stringify(this.count));
         this.router.navigate(['home']);
       }
     });

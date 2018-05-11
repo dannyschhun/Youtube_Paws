@@ -21,12 +21,14 @@ export class AftermathComponent implements OnInit {
   query: string;
   search: string;
   obj: Youtube;
+
+  loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
   vidDescription: VidDescription; 
   index: number;
   user: Users = JSON.parse(localStorage.getItem('user'));
   viewSetting: ViewSettings = this.user.userViewSettings[0];;
   timeString: string = "T19:00:01.000Z";
- 
+
 
   constructor(
     private route: ActivatedRoute,
@@ -35,7 +37,10 @@ export class AftermathComponent implements OnInit {
     private videoService: VideosService,
     private viewService: ViewService
   ) {
-      
+
+    if (!this.loggedIn) {
+      this.router.navigate(['login']);
+    }
   }
 
   ngOnInit() {
@@ -46,12 +51,13 @@ export class AftermathComponent implements OnInit {
     this.getSearchQuery();
     this.getSearchedVideos();
   }
-  //Gets Query from URL Pathand puts it in a proper API search form
-  //Checks view setting to see time range we want 
+  // Gets Query from URL Pathand puts it in a proper API search form
+  // Checks view setting to see time range we want
   getSearchQuery(): void {
     // Get's query from URL and and gets the right API url based on our view settings
     this.query = this.route.snapshot.paramMap.get('query');
     this.query = this.query.split(' ').join('+');
+
     if (this.viewSetting.lengthMax < 5)
       this.query = 'search?part=snippet&type=video&videoDuration=short&publishedAfter=' + this.viewSetting.uploadTimeMin + this.timeString + '&publishedBefore=' + this.viewSetting.uploadTimeMax + this.timeString + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
     else if (this.viewSetting.lengthMin > 5 && this.viewSetting.lengthMax < 20)
@@ -70,12 +76,12 @@ export class AftermathComponent implements OnInit {
   getSearchedVideos(): void {
     // vvvvvvv Search video based on query and upload time vvvvvvvvv
     this.videoService.Search(this.query).subscribe(vids => {
-      localStorage.setItem("searchedVids", JSON.stringify(vids));
-      console.log("trying to get vids");
-      this.obj = JSON.parse(localStorage.getItem("searchedVids"));
-      this.query = "videos?part=contentDetails&id=";
+      localStorage.setItem('searchedVids', JSON.stringify(vids));
+      console.log('trying to get vids');
+      this.obj = JSON.parse(localStorage.getItem('searchedVids'));
+      this.query = 'videos?part=contentDetails&id=';
       this.obj.items.forEach(element => {
-        this.query = this.query + element.id.videoId + ",";
+        this.query = this.query + element.id.videoId + ',';
       });
       this.query = this.query.substring(0, this.query.length - 1);
     // ^^^^^^^^ Search video based on query and upload time ^^^^^^^^^
@@ -83,22 +89,22 @@ export class AftermathComponent implements OnInit {
     // vvvvvvvv Search each search video for it's details to get duration time of each vvvvvvvvvv
       this.videoService.VideoDescription(this.query).subscribe(descripts => {
         this.vidDescription = JSON.parse(JSON.stringify(descripts));
-        console.log("getting descriptions");
+        console.log('getting descriptions');
         console.log(this.vidDescription);
-        let vidMinsTemp = new Array(0);
-        let showVidTemp = new Array(0);
+        const vidMinsTemp = new Array(0);
+        const showVidTemp = new Array(0);
         // Gets duration and splits the time putting the whole time in minutes
         this.vidDescription.items.forEach(filter => {
-          this.temp = filter.contentDetails.duration.split("T")[1].split("H");
-          if (this.temp[0].length == 1) {
-            vidMinsTemp.push(parseInt(this.temp[1].split("M")[0]) + (parseInt(this.temp[0]) * 60));
+          this.temp = filter.contentDetails.duration.split('T')[1].split('H');
+          if (this.temp[0].length === 1) {
+            vidMinsTemp.push(parseInt(this.temp[1].split('M')[0]) + (parseInt(this.temp[0]) * 60));
           } else {
             vidMinsTemp.push(parseInt(this.temp[0].split("M")[0]));
           }
         });
         this.vidMins = vidMinsTemp;
         console.log(this.vidMins);
-      })
+      });
     });
     // ^^^^^^^^^^^ Search each search video for it's details to get duration time of each ^^^^^^^^
   }

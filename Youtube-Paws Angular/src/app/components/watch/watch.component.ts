@@ -4,7 +4,9 @@ import { PageLayout } from '../../models/PageLayout';
 import { Users } from '../../models/Users';
 import { UserService } from '../../services/user.service';
 import { Time } from '@angular/common';
+import {HttpClient} from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
+
 
 
 @Component({
@@ -16,15 +18,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class WatchComponent implements OnInit {
   layoutFilled = true;
   clayoutFilled = true;
+  categoryColor = '#ffffff';
 
   public layout = new PageLayout();
   public clayout = new PageLayout();
   user = new Users;
   layoutUser = new Users;
   loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
-  loaded: boolean = (sessionStorage.getItem('loaded') !== null) ? true : false;
+  loaded: boolean = (localStorage.getItem('loaded') !== null) ? true : false;
+  choseUser = false;
 
   public YT: any;
+
   public video1: any;
   public video2: any;
   public whichVid: any;
@@ -32,7 +37,12 @@ export class WatchComponent implements OnInit {
   public player1: any;
   public player2: any;
 
-  constructor(private userService: UserService, public sanitizer: DomSanitizer, public route: ActivatedRoute, public router: Router) {}
+  constructor(private userService: UserService, public sanitizer: DomSanitizer, public route: ActivatedRoute, public router: Router, private httpClient: HttpClient) {
+    if (!this.loggedIn) {
+      this.router.navigate(['login']);
+    }
+}
+  
   vid1Pos = 'transform: translate3d(100px, 0px, 0)';
   vid2Pos = 'transform: translate3d(400px, 0px, 0)';
   searchB = 'transform: translate3d(850px, -100px, 0)';
@@ -56,7 +66,6 @@ export class WatchComponent implements OnInit {
     this.init();
     this.video1 = localStorage.getItem('vid1');
     this.video2 = localStorage.getItem('vid2');
-    
 
       window['onYouTubeIframeAPIReady'] = () => {
         this.YT = window['YT'];
@@ -74,7 +83,7 @@ export class WatchComponent implements OnInit {
             'onError': this.onPlayerError2.bind(this)
           }
         });
-        sessionStorage.setItem('loaded', 'true');
+        localStorage.setItem('loaded', 'true');
       };
 
       this.YT = window['YT'];
@@ -93,6 +102,25 @@ export class WatchComponent implements OnInit {
         }
       });
       
+  }
+
+  changeVideo() {
+    this.YT = null;
+    this.YT = window['YT'];
+      this.player1 = new window['YT'].Player('player1', {
+        videoId: this.video1,
+        events: {
+          'onStateChange': this.onPlayerStateChange.bind(this),
+          'onError': this.onPlayerError.bind(this)
+        }
+      }),
+      this.player2 = new window['YT'].Player('player2', {
+        videoId: this.video2,
+        events: {
+          'onStateChange': this.onPlayerStateChange2.bind(this),
+          'onError': this.onPlayerError2.bind(this)
+        }
+      });
   }
 
 
@@ -197,6 +225,7 @@ export class WatchComponent implements OnInit {
       }
       this.user.userPageLayout[i] = new PageLayout();
       this.user.userPageLayout[i].layoutName = this.layout.layoutName;
+      this.user.userPageLayout[i].background = this.categoryColor;
       this.user.userPageLayout[i].searchBarLoc = this.searchB;
       this.user.userPageLayout[i].video1Loc = this.vid1Pos;
       this.user.userPageLayout[i].video2Loc = this.vid2Pos;
@@ -215,6 +244,13 @@ export class WatchComponent implements OnInit {
   }
 }
 
+selectUser() {
+  this.userService.getUser(this.layoutUser).subscribe(users => {
+    this.layoutUser = users;
+    this.choseUser = true;
+  });
+}
+
   selectLayout() {
     let i = 0;
     this.userService.getUser(this.layoutUser).subscribe(users => {
@@ -225,6 +261,7 @@ export class WatchComponent implements OnInit {
           this.searchB = this.layoutUser.userPageLayout[i].searchBarLoc;
           this.vid1Pos = this.layoutUser.userPageLayout[i].video1Loc;
           this.vid2Pos = this.layoutUser.userPageLayout[i].video2Loc;
+          this.categoryColor = this.layoutUser.userPageLayout[i].background;
         }
     }
   });
@@ -244,7 +281,8 @@ export class WatchComponent implements OnInit {
           this.vid2Pos = this.newPos;
           break;
       }
-      console.log(event.clientX +" " + event.clientY)
+
+      console.log(event.clientX + '' + event.clientY);
     }
   }
 

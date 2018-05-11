@@ -8,15 +8,20 @@ import { ViewService } from '../../services/view.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
 
   search: String = '';
   query: String = '';
+
   index: number;
 
   constructor(private router: Router, private viewService: ViewService) {
-    this.viewService.index.subscribe(index =>{
-      this.index = index;
-    }); 
+       if (!this.loggedIn) {
+      this.router.navigate(['login']);
+       }
+      this.viewService.index.subscribe(index =>{
+        this.index = index;
+      }); 
   }
 
   ngOnInit() {

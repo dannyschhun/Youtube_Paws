@@ -5,6 +5,7 @@ import { ViewSettings } from '../../models/ViewSettings';
 import { ViewService } from '../../services/view.service';
 import { timer } from 'rxjs/observable/timer';
 import { take, map } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 import { Users } from '../../models/Users';
 import { Tags } from '../../models/Tags';
 import { Category } from '../../models/Category';
@@ -15,7 +16,8 @@ import { Category } from '../../models/Category';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  countDown;
+  countDown: Observable<number> = null;
+  count;
   isOpen = false;
   viewOpen = false;
   loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
@@ -30,6 +32,14 @@ export class NavComponent implements OnInit {
   constructor(private userService: UserService, private router: Router, private viewService: ViewService) {
     this.userService.getLoggedIn().subscribe(loggedIn => {
       this.loggedIn = loggedIn;
+      if (loggedIn) {
+        this.countdown();
+        this.countDown.subscribe(zero => {
+          if (this.count === 0) {
+            this.logout();
+          }
+        });
+        
       console.log(this.loggedUser)
       if(this.loggedUser.userViewSettings.length == 0) {
         this.minStr = "6";
@@ -62,12 +72,12 @@ export class NavComponent implements OnInit {
   }
 
 countdown() {
-  let count = JSON.parse(localStorage.getItem('time'));
-  count = count * 60;
+  this.count = JSON.parse(localStorage.getItem('time'));
+  this.count = this.count * 60;
   this.timed = true;
   this.countDown = timer(0, 1000).pipe(
-    take(count),
-    map(() => --count)
+    take(this.count),
+    map(() => --this.count)
  );
 }
 
@@ -94,7 +104,8 @@ countdown() {
     this.timed = false;
     this.router.navigate(['login']);
   }
-  //update view settings
+  
+  // update view settings
   viewUpdate() {
     console.log("View index is: " + this.viewIndex);
     this.max = parseInt(this.maxStr);
@@ -135,6 +146,8 @@ countdown() {
       localStorage.setItem('user', JSON.stringify(this.loggedUser));
     });
   }
+}
+
 
   changeSet(index: number) {
     this.maxStr = this.loggedUser.userViewSettings[index].lengthMax.toString();
