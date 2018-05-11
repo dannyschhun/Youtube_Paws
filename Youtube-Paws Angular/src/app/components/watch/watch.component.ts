@@ -4,6 +4,8 @@ import { PageLayout } from '../../models/PageLayout';
 import { Users } from '../../models/Users';
 import { UserService } from '../../services/user.service';
 import { Time } from '@angular/common';
+import { Router } from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 
 
 @Component({
@@ -26,13 +28,18 @@ export class WatchComponent implements OnInit {
   choseUser = false;
 
   public YT: any;
-  public video1: any;
-  public video2: any;
+  public video1 = 'hR3XvOXEsVQ';
+  public video2 = 'hR3XvOXEsVQ';
   public players: any[];
   public player1: any;
   public player2: any;
 
-  constructor(private userService: UserService, public sanitizer: DomSanitizer) {}
+  constructor(private userService: UserService, private router: Router, public sanitizer: DomSanitizer, private httpClient: HttpClient) {
+    if (!this.loggedIn) {
+      this.router.navigate(['login']);
+    }
+  }
+
   vid1Pos = 'transform: translate3d(100px, 0px, 0)';
   vid2Pos = 'transform: translate3d(400px, 0px, 0)';
   searchB = 'transform: translate3d(850px, -100px, 0)';
@@ -52,9 +59,6 @@ export class WatchComponent implements OnInit {
 
   ngOnInit() {
     this.init();
-    this.video1 = '1cH2cerUpMQ'; // video id
-    this.video2 = '1cH2cerUpMQ';
-
 
       window['onYouTubeIframeAPIReady'] = () => {
         this.YT = window['YT'];
@@ -76,6 +80,25 @@ export class WatchComponent implements OnInit {
       };
 
       this.YT = window['YT'];
+      this.player1 = new window['YT'].Player('player1', {
+        videoId: this.video1,
+        events: {
+          'onStateChange': this.onPlayerStateChange.bind(this),
+          'onError': this.onPlayerError.bind(this)
+        }
+      }),
+      this.player2 = new window['YT'].Player('player2', {
+        videoId: this.video2,
+        events: {
+          'onStateChange': this.onPlayerStateChange2.bind(this),
+          'onError': this.onPlayerError2.bind(this)
+        }
+      });
+  }
+
+  changeVideo() {
+    this.YT = null;
+    this.YT = window['YT'];
       this.player1 = new window['YT'].Player('player1', {
         videoId: this.video1,
         events: {
