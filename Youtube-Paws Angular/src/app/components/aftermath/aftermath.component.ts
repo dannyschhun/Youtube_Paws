@@ -21,8 +21,10 @@ export class AftermathComponent implements OnInit {
   search: string;
   obj: Youtube;
   vidDescription: VidDescription;
+
   viewSetting: ViewSettings = this.viewService.getViewSetting();
   loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
+
 
   constructor(
     private route: ActivatedRoute,

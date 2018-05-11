@@ -1,27 +1,43 @@
 import { Injectable } from '@angular/core';
 import { ViewSettings } from '../models/ViewSettings';
 import { Tags } from '../models/Tags'
+import { environment } from '../../environments/environment.prod';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+
+
+const API_URL = environment.apiUrl;
+const HTTP_OPTIONS = {
+  headers: new HttpHeaders({
+    'Content-Type': 'application/json'
+  })
+};
 
 @Injectable()
 export class ViewService {
 
   tag: Tags = { id: 0, name: "null" }
   timeString: string = "T19:00:01.000Z";
-  viewSetting: ViewSettings
 
-  constructor() {
-  this.viewSetting = { id: 1, viewSettingsName: "", lengthMax: 50, lengthMin: 25, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"2007-05-12T19:00:01.000Z", uploadTimeMin:"2018-05-08T19:00:01.000Z", ratingMin:0, ratingMax:0,categories: {id:1, name:"null"}[0], settingTags: {id: 1, name: "null"}[0], excludeTags: {id: 1, name: "null"}[0]};
+  subscribers: BehaviorSubject<ViewSettings> = new BehaviorSubject<ViewSettings>(null);
+
+
+  constructor(private http: HttpClient) {
 
   }
 
-  setViewSetting(min: number, max: number, minDate: string, maxDate: string) {
-    this.viewSetting.uploadTimeMin = minDate + this.timeString;
-    this.viewSetting.uploadTimeMax = maxDate + this.timeString;
-    this.viewSetting.lengthMin = min;
-    this.viewSetting.lengthMax = max;
+  updateViewSetting(updateView: ViewSettings) {
+    console.log(updateView);
   }
 
   getViewSetting() {
-      return this.viewSetting;
+      
+  }
+
+  newViewSetting(newView: ViewSettings) {
+    console.log("This is newView: " + newView);
+    const json = JSON.stringify(newView);
+    console.log(json);
+    return this.http.post<ViewSettings>(API_URL + 'viewSettings/new', json, HTTP_OPTIONS);
   }
 }

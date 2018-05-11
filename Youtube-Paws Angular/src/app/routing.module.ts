@@ -17,7 +17,7 @@ export const routes: Routes = [
     { path: 'aftermath/:query', component: AftermathComponent},
     { path: 'settings', component: SettingsComponent},
     { path: 'subscriptions', component: SubscriptionsComponent },
-    { path: 'watch', component: WatchComponent }
+    { path: 'watch/:id/:vid', component: WatchComponent }
 ];
 
 @NgModule({

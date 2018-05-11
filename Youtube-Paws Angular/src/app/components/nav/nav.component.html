@@ -53,6 +53,9 @@
 <span *ngIf="loggedIn" style="font-size:30px;cursor:pointer; float: right;" (click)="openView()">&#9776; View Settings</span>
 <div *ngIf="loggedIn" id="view-settings" class="sidenav" [style.width]="viewOpen ? '350px':'0px'">
   <a class="closebtn" (click)="closeView()">&times;</a>
+  <!-- <h3>{{loggedUser.userViewSettings[0].viewSettingsName}}</h3> -->
+  <h3 *ngIf="loggedUser.userViewSettings.length != 0">{{loggedUser.userViewSettings[0].viewSettingsName}}</h3>
+  <h3 *ngIf="loggedUser.userViewSettings.length == 0">No Playlist</h3>
   <label>Minimum Time</label>
   <div>
     <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="min" [(ngModel)]="minStr">
@@ -72,6 +75,10 @@
   <div>
     <button class="btn btn-primary" id="viewUpdate" (click)="viewUpdate()">Update</button>
   </div>
+  <div>
+    <input type="text" id="playlistName" class="form-control col-sm-4" placeholder="Playlist Name" [(ngModel)]="viewName" required> 
+  </div>
+  <button class="btn btn-primary" id="newPlaylist" (click)="newPlaylist()">New</button>
 </div>
 <!-- ///////////////////////////////////////////////////////// -->
 <router-outlet></router-outlet>
