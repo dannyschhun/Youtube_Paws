@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light" style="background-color: rgb(170, 169, 169);">
   <a class="navbar-brand" href="#">
-    <img src="assets/mytubepaws.jpg" height="80" width=auto alt="Youtube-Paws">
+    <img src="../../../assets/mytubepaws.jpg" height="80" width=auto alt="Youtube-Paws">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
     aria-expanded="false" aria-label="Toggle navigation">
@@ -72,15 +72,15 @@
   </div>
   <label>Maximum Time</label>
   <div>
-    <input type="text" id="maxDuration" class="form-control col-sm-4" placeholder="max" [(ngModel)]="maxStr">
+    <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="max" [(ngModel)]="maxStr">
   </div>
   <label>Upload Date's Between</label>
   <div>
-    <input type="text" id="minDate" class="form-control col-sm-4" placeholder="yyyy-MM-dd" [(ngModel)]="minDate">
+    <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="yyyy-MM-dd" [(ngModel)]="minDate">
   </div>
   <label>To</label>
   <div>
-    <input type="text" id="maxDate" class="form-control col-sm-4" placeholder="yyyy-MM-dd" [(ngModel)]="maxDate">
+    <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="yyyy-MM-dd" [(ngModel)]="maxDate">
   </div>
   <div>
     <button class="btn btn-primary" id="viewUpdate" (click)="viewUpdate()">Update</button>

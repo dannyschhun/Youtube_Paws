@@ -39,34 +39,32 @@ export class NavComponent implements OnInit {
             this.logout();
           }
         });
-
         
-        this.loggedUser = JSON.parse(localStorage.getItem('user'));
-        console.log(this.loggedUser);
-        if (this.loggedUser.userViewSettings.length === 0) {
-          this.minStr = "6";
-          this.maxStr = "12";
-          this.minDate = "2007-05-12";
-          this.maxDate = "2018-05-08";
-        } else {
-          this.minStr = this.loggedUser.userViewSettings[0].lengthMin.toString();
-          this.maxStr = this.loggedUser.userViewSettings[0].lengthMax.toString();
-          this.minDate = this.loggedUser.userViewSettings[0].uploadTimeMin.split("T")[0];
-          this.maxDate = this.loggedUser.userViewSettings[0].uploadTimeMax.split("T")[0];
-        }
+      console.log(this.loggedUser)
+      if(this.loggedUser.userViewSettings.length == 0) {
+        this.minStr = "6";
+        this.maxStr = "12";
+        this.minDate = "2007-05-12";
+        this.maxDate = "2018-05-08";
+      } else {
+        this.minStr = this.loggedUser.userViewSettings[0].lengthMin.toString();
+        this.maxStr = this.loggedUser.userViewSettings[0].lengthMax.toString();
+        this.minDate = this.loggedUser.userViewSettings[0].uploadTimeMin.split("T")[0];
+        this.maxDate = this.loggedUser.userViewSettings[0].uploadTimeMax.split("T")[0];
       }
-      });
+    });
+    console.log(this.loggedUser);
+  }
 
-    }
-
-    minStr: string;
+  
+  minStr: string;
   maxStr: string;
   min: number;
   max: number;
   minDate: string;
   maxDate: string;
   viewName: string;
-
+  
 
   path: any = 'assets/mytubepaws.png';
 
@@ -106,7 +104,7 @@ countdown() {
     this.timed = false;
     this.router.navigate(['login']);
   }
-
+  
   // update view settings
   viewUpdate() {
     console.log("View index is: " + this.viewIndex);
@@ -143,11 +141,12 @@ countdown() {
       this.loggedUser.userViewSettings.push(newView);
       this.userService.updateUser(this.loggedUser).subscribe(users => {
         console.log(users);
-      });
+      })
       localStorage.removeItem('user');
       localStorage.setItem('user', JSON.stringify(this.loggedUser));
     });
   }
+}
 
 
   changeSet(index: number) {
@@ -157,4 +156,4 @@ countdown() {
     this.loggedUser.userViewSettings[index].uploadTimeMax = this.maxDate;
     this.viewService.changeViewSetting(index);
   }
-}
+}         
