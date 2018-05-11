@@ -7,10 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
 
   search: String = '';
   query: String = '';
-  constructor(private router: Router) { }
+
+  constructor(private router: Router) {
+    if (!this.loggedIn) {
+      this.router.navigate(['login']);
+    }
+  }
 
   ngOnInit() {
 
