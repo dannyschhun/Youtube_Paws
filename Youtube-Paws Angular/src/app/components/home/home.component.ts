@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ViewService } from '../../services/view.service';
 
 @Component({
   selector: 'app-home',
@@ -12,14 +13,19 @@ export class HomeComponent implements OnInit {
   search: String = '';
   query: String = '';
 
-  constructor(private router: Router) {
-    if (!this.loggedIn) {
+  index: number;
+
+  constructor(private router: Router, private viewService: ViewService) {
+       if (!this.loggedIn) {
       this.router.navigate(['login']);
-    }
+       }
+      this.viewService.index.subscribe(index =>{
+        this.index = index;
+      }); 
   }
 
   ngOnInit() {
-
+    
   }
 
   searched() {

@@ -6,6 +6,7 @@ import { Youtube } from '../../models/YoutubeVid/Youtube';
 import { VidDescription } from '../../models/VidDetail/VidDescription';
 import { ViewSettings } from '../../models/ViewSettings';
 import { ViewService } from '../../services/view.service';
+import { Users } from '../../models/Users';
 
 @Component({
   selector: 'app-aftermath',
@@ -20,10 +21,13 @@ export class AftermathComponent implements OnInit {
   query: string;
   search: string;
   obj: Youtube;
-  vidDescription: VidDescription;
 
-  viewSetting: ViewSettings = this.viewService.getViewSetting();
   loggedIn: boolean = (localStorage.getItem('user') !== null) ? true : false;
+  vidDescription: VidDescription; 
+  index: number;
+  user: Users = JSON.parse(localStorage.getItem('user'));
+  viewSetting: ViewSettings = this.user.userViewSettings[0];;
+  timeString: string = "T19:00:01.000Z";
 
 
   constructor(
@@ -33,12 +37,17 @@ export class AftermathComponent implements OnInit {
     private videoService: VideosService,
     private viewService: ViewService
   ) {
+
     if (!this.loggedIn) {
       this.router.navigate(['login']);
     }
   }
 
   ngOnInit() {
+    this.viewService.index.subscribe(index =>{
+      this.index = index;
+    })
+    this.viewSetting = this.user.userViewSettings[this.index];
     this.getSearchQuery();
     this.getSearchedVideos();
   }
@@ -48,22 +57,15 @@ export class AftermathComponent implements OnInit {
     // Get's query from URL and and gets the right API url based on our view settings
     this.query = this.route.snapshot.paramMap.get('query');
     this.query = this.query.split(' ').join('+');
-    if (this.viewSetting.lengthMax < 5) {
-      this.query = 'search?part=snippet&type=video&videoDuration=short&publishedAfter='
-      + this.viewSetting.uploadTimeMin + '&publishedBefore=' + this.viewSetting.uploadTimeMax
-      + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
-    } else if (this.viewSetting.lengthMin > 5 && this.viewSetting.lengthMax < 20) {
-      this.query = 'search?part=snippet&type=video&videoDuration=medium&publishedAfter='
-      + this.viewSetting.uploadTimeMin + '&publishedBefore=' + this.viewSetting.uploadTimeMax
-      + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
-    } else if (this.viewSetting.lengthMin > 19) {
-      this.query = 'search?part=snippet&type=video&videoDuration=long&publishedAfter='
-      + this.viewSetting.uploadTimeMin + '&publishedBefore=' + this.viewSetting.uploadTimeMax
-      + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
-    } else {
-      this.query = 'search?part=snippet&type=video&publishedAfter=' + this.viewSetting.uploadTimeMin
-      + '&publishedBefore=' + this.viewSetting.uploadTimeMax + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
-    }
+
+    if (this.viewSetting.lengthMax < 5)
+      this.query = 'search?part=snippet&type=video&videoDuration=short&publishedAfter=' + this.viewSetting.uploadTimeMin + this.timeString + '&publishedBefore=' + this.viewSetting.uploadTimeMax + this.timeString + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
+    else if (this.viewSetting.lengthMin > 5 && this.viewSetting.lengthMax < 20)
+      this.query = 'search?part=snippet&type=video&videoDuration=medium&publishedAfter=' + this.viewSetting.uploadTimeMin + this.timeString + '&publishedBefore=' + this.viewSetting.uploadTimeMax + this.timeString + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
+    else if (this.viewSetting.lengthMin > 19)
+      this.query = 'search?part=snippet&type=video&videoDuration=long&publishedAfter=' + this.viewSetting.uploadTimeMin + this.timeString + '&publishedBefore=' + this.viewSetting.uploadTimeMax + this.timeString + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
+    else
+      this.query = 'search?part=snippet&type=video&publishedAfter=' + this.viewSetting.uploadTimeMin + this.timeString + '&publishedBefore=' + this.viewSetting.uploadTimeMax + this.timeString + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
   }
 
 
