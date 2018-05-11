@@ -4,6 +4,7 @@ import { PageLayout } from '../../models/PageLayout';
 import { Users } from '../../models/Users';
 import { UserService } from '../../services/user.service';
 import { Time } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -26,11 +27,12 @@ export class WatchComponent implements OnInit {
   public YT: any;
   public video1: any;
   public video2: any;
+  public whichVid: any;
   public players: any[];
   public player1: any;
   public player2: any;
 
-  constructor(private userService: UserService, public sanitizer: DomSanitizer) {}
+  constructor(private userService: UserService, public sanitizer: DomSanitizer, public route: ActivatedRoute, public router: Router) {}
   vid1Pos = 'transform: translate3d(100px, 0px, 0)';
   vid2Pos = 'transform: translate3d(400px, 0px, 0)';
   searchB = 'transform: translate3d(850px, -100px, 0)';
@@ -38,6 +40,7 @@ export class WatchComponent implements OnInit {
   vidUrl: String = 'http://www.youtube.com/embed/' + this.vidLink;
   imgUrl: String = '../../../assets/mytubepaws.jpg';
   newPos: string;
+  search: string;
 
   custom: any;
 
@@ -49,9 +52,11 @@ export class WatchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getSearchVideos();
     this.init();
-    this.video1 = '1cH2cerUpMQ'; // video id
-    this.video2 = '1cH2cerUpMQ';
+    this.video1 = localStorage.getItem('vid1');
+    this.video2 = localStorage.getItem('vid2');
+    
 
       window['onYouTubeIframeAPIReady'] = () => {
         this.YT = window['YT'];
@@ -87,9 +92,20 @@ export class WatchComponent implements OnInit {
           'onError': this.onPlayerError2.bind(this)
         }
       });
+      
   }
 
 
+  getSearchVideos(): void {
+    // Get's query from URL and and gets the right API url based on our view settings
+    this.whichVid = this.route.snapshot.paramMap.get('vid');
+    
+    if(this.whichVid == 1){
+      localStorage.setItem('vid1', this.route.snapshot.paramMap.get('id'));
+    } else if(this.whichVid == 2){
+      localStorage.setItem('vid2', this.route.snapshot.paramMap.get('id'));
+    }
+  }
   onPlayerStateChange(event) {
     console.log(event);
     console.log(this.player1.getCurrentTime());
@@ -230,5 +246,9 @@ export class WatchComponent implements OnInit {
       }
       console.log(event.clientX +" " + event.clientY)
     }
+  }
+
+  searched() {
+    this.router.navigate(['aftermath/' + this.search]);
   }
 }

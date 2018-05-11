@@ -6,6 +6,7 @@ import { Youtube } from '../../models/YoutubeVid/Youtube';
 import { VidDescription } from '../../models/VidDetail/VidDescription';
 import { ViewSettings } from '../../models/ViewSettings';
 import { ViewService } from '../../services/view.service';
+import { Users } from '../../models/Users';
 
 @Component({
   selector: 'app-aftermath',
@@ -20,8 +21,12 @@ export class AftermathComponent implements OnInit {
   query: string;
   search: string;
   obj: Youtube;
-  vidDescription: VidDescription;
-  viewSetting: ViewSettings = { id: 1, viewSettingsName: "", lengthMax: 12, lengthMin: 6, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"2007-05-12T19:00:01.000Z", uploadTimeMin:"2018-05-08T19:00:01.000Z", ratingMin:0, ratingMax:0,categories: {id:1, name:"null"}[0], settingTags: {id: 1, name: "null"}[0], excludeTags: {id: 1, name: "null"}[0]}; 
+  vidDescription: VidDescription; 
+  index: number;
+  user: Users = JSON.parse(localStorage.getItem('user'));
+  viewSetting: ViewSettings = this.user.userViewSettings[0];;
+  timeString: string = "T19:00:01.000Z";
+ 
 
   constructor(
     private route: ActivatedRoute,
@@ -30,10 +35,14 @@ export class AftermathComponent implements OnInit {
     private videoService: VideosService,
     private viewService: ViewService
   ) {
-
+      
   }
 
   ngOnInit() {
+    this.viewService.index.subscribe(index =>{
+      this.index = index;
+    })
+    this.viewSetting = this.user.userViewSettings[this.index];
     this.getSearchQuery();
     this.getSearchedVideos();
   }
@@ -44,13 +53,13 @@ export class AftermathComponent implements OnInit {
     this.query = this.route.snapshot.paramMap.get('query');
     this.query = this.query.split(' ').join('+');
     if (this.viewSetting.lengthMax < 5)
-      this.query = 'search?part=snippet&type=video&videoDuration=short&publishedAfter=' + this.viewSetting.uploadTimeMin + '&publishedBefore=' + this.viewSetting.uploadTimeMax + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
+      this.query = 'search?part=snippet&type=video&videoDuration=short&publishedAfter=' + this.viewSetting.uploadTimeMin + this.timeString + '&publishedBefore=' + this.viewSetting.uploadTimeMax + this.timeString + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
     else if (this.viewSetting.lengthMin > 5 && this.viewSetting.lengthMax < 20)
-      this.query = 'search?part=snippet&type=video&videoDuration=medium&publishedAfter=' + this.viewSetting.uploadTimeMin + '&publishedBefore=' + this.viewSetting.uploadTimeMax + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
+      this.query = 'search?part=snippet&type=video&videoDuration=medium&publishedAfter=' + this.viewSetting.uploadTimeMin + this.timeString + '&publishedBefore=' + this.viewSetting.uploadTimeMax + this.timeString + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
     else if (this.viewSetting.lengthMin > 19)
-      this.query = 'search?part=snippet&type=video&videoDuration=long&publishedAfter=' + this.viewSetting.uploadTimeMin + '&publishedBefore=' + this.viewSetting.uploadTimeMax + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
+      this.query = 'search?part=snippet&type=video&videoDuration=long&publishedAfter=' + this.viewSetting.uploadTimeMin + this.timeString + '&publishedBefore=' + this.viewSetting.uploadTimeMax + this.timeString + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
     else
-      this.query = 'search?part=snippet&type=video&publishedAfter=' + this.viewSetting.uploadTimeMin + '&publishedBefore=' + this.viewSetting.uploadTimeMax + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
+      this.query = 'search?part=snippet&type=video&publishedAfter=' + this.viewSetting.uploadTimeMin + this.timeString + '&publishedBefore=' + this.viewSetting.uploadTimeMax + this.timeString + '&maxResults=50&key=AIzaSyCct6ZTzzep_67WRs7tw5V29YJVs2ny6_8&q=' + this.query;
   }
 
 

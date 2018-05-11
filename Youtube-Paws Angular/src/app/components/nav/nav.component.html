@@ -14,8 +14,8 @@
         </a>
       </li>
       <li class="nav-item">
-          <a class="nav-link" routerLink="/watch">Watch</a>
-        </li>
+        <a class="nav-link" routerLink="/watch">Watch</a>
+      </li>
       <li class="nav-item">
         <a *ngIf="loggedIn" class="nav-link" routerLink="/subscriptions">Subscriptions</a>
       </li>
@@ -29,11 +29,11 @@
         <a *ngIf="loggedIn" class="nav-link" routerLink="/settings">Settings</a>
       </li>
       <li class="nav-item">
-          <a *ngIf="!timed && loggedIn" class="nav-link" (click)="countdown()">Start Countdown</a>
-        </li>
+        <a *ngIf="!timed && loggedIn" class="nav-link" (click)="countdown()">Start Countdown</a>
+      </li>
       <li class="nav-item">
-          <a *ngIf="timed" class="nav-link">{{ countDown | async }}</a>
-        </li>
+        <a *ngIf="timed" class="nav-link">{{ countDown | async }}</a>
+      </li>
       <li class="nav-item">
         <a *ngIf="loggedIn" class="nav-link" routerLink="" (click)="logout()">Logout</a>
       </li>
@@ -57,9 +57,19 @@
 <div *ngIf="loggedIn" id="view-settings" class="sidenav" [style.width]="viewOpen ? '350px':'0px'">
   <a class="closebtn" (click)="closeView()">&times;</a>
   <!-- <h3>{{loggedUser.userViewSettings[0].viewSettingsName}}</h3> -->
-  <h3 *ngIf="loggedUser.userViewSettings.length != 0">{{loggedUser.userViewSettings[0].viewSettingsName}}</h3>
-  <h3 *ngIf="loggedUser.userViewSettings.length == 0">No Playlist</h3>
-  <label>Minimum Time</label>
+  <span ng-controller="settings" *ngIf="loggedUser.userViewSettings.length != 0">
+    <div>
+      <label for="singleSelect">Customization</label>
+      <select class="form-control" name="viewIndex" id="viewIndex" [(ngModel)]="viewIndex">
+        <option *ngFor="let views of loggedUser.userViewSettings; let i = index" value={{i}}>{{ views.viewSettingsName }}</option>
+      </select>
+    </div>
+    <div>
+      <button class="btn btn-primary" id="use" name="use" (click)="changeSet(viewIndex)">Use</button>
+    </div>
+  </span>
+  <h3 *ngIf="loggedUser.userViewSettings.length == 0">No View Settings</h3>
+  <label>Minimum Time {{viewIndex}}</label>
   <div>
     <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="min" [(ngModel)]="minStr">
   </div>
@@ -79,7 +89,7 @@
     <button class="btn btn-primary" id="viewUpdate" (click)="viewUpdate()">Update</button>
   </div>
   <div>
-    <input type="text" id="playlistName" class="form-control col-sm-4" placeholder="Playlist Name" [(ngModel)]="viewName" required> 
+    <input type="text" id="playlistName" class="form-control col-sm-4" placeholder="Playlist Name" [(ngModel)]="viewName" required>
   </div>
   <button class="btn btn-primary" id="newPlaylist" (click)="newPlaylist()">New</button>
 </div>

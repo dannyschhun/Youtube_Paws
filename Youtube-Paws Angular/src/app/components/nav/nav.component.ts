@@ -24,8 +24,8 @@ export class NavComponent implements OnInit {
   loggedUser: Users = JSON.parse(localStorage.getItem('user'));
   tag: Tags = {id: 1, name: "none"};
   category: Category = {categoryId: 1, categoryName: "none"};
-  viewSettingsTemp: ViewSettings = { id: null, viewSettingsName: "Playlist", lengthMax: 12, lengthMin: 6, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"2007-05-12T19:00:01.000Z", uploadTimeMin:"2018-05-08T19:00:01.000Z", ratingMin:0, ratingMax:0,categories: [this.category] , settingTags: [this.tag], excludeTags: [this.tag] };
-  
+  viewSettingsTemp: ViewSettings = { id: null, viewSettingsName: "Playlist", lengthMax: 12, lengthMin: 6, subscriberCountMin: 1, subscriberCountMax:2, uploadTimeMax:"2007-05-12T19:00:01.000Z", uploadTimeMin:"2018-05-08T19:00:01.000Z", ratingMin:0, ratingMax:0,categories: [null] , settingTags: [null], excludeTags: [null] };
+  viewIndex: number;
 
   constructor(private userService: UserService, private router: Router, private viewService: ViewService) {
     this.userService.getLoggedIn().subscribe(loggedIn => {
@@ -96,14 +96,23 @@ countdown() {
   }
   //update view settings
   viewUpdate() {
+    console.log("View index is: " + this.viewIndex);
     this.max = parseInt(this.maxStr);
     this.min = parseInt(this.minStr);
-    this.viewSettingsTemp.lengthMax = this.max;
-    this.viewSettingsTemp.lengthMin = this.min;
-    this.viewSettingsTemp.uploadTimeMin = this.minDate;
-    this.viewSettingsTemp.uploadTimeMax = this.maxDate;
+    this.loggedUser.userViewSettings[this.viewIndex].lengthMax = this.max;
+    this.loggedUser.userViewSettings[this.viewIndex].lengthMin = this.min;
+    this.loggedUser.userViewSettings[this.viewIndex].uploadTimeMin = this.minDate;
+    this.loggedUser.userViewSettings[this.viewIndex].uploadTimeMax = this.maxDate;
     console.log(this.viewSettingsTemp);
-    this.viewService.updateViewSetting(this.viewSettingsTemp);
+    console.log(this.loggedUser.userViewSettings[this.viewIndex]);
+    this.viewService.updateViewSetting(this.loggedUser.userViewSettings[this.viewIndex]).subscribe(updateView => {
+      console.log(updateView);
+      this.userService.updateUser(this.loggedUser).subscribe(user => {
+        console.log(user);
+      })
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify(this.loggedUser));
+    });
 
   }
 
@@ -123,7 +132,15 @@ countdown() {
         console.log(users);
       })
       localStorage.removeItem('user');
-      localStorage.setItem('user', JSON.stringify(this.loggedUser))
+      localStorage.setItem('user', JSON.stringify(this.loggedUser));
     });
+  }
+
+  changeSet(index: number) {
+    this.maxStr = this.loggedUser.userViewSettings[index].lengthMax.toString();
+    this.minStr = this.loggedUser.userViewSettings[index].lengthMin.toString();
+    this.loggedUser.userViewSettings[index].uploadTimeMin = this.minDate;
+    this.loggedUser.userViewSettings[index].uploadTimeMax = this.maxDate;
+    this.viewService.changeViewSetting(index);
   }
 }         
