@@ -33,8 +33,8 @@ export class LoginComponent implements OnInit {
       } else {
         this.userService.subscribers.next(users);
         localStorage.setItem('time', JSON.stringify(this.count));
-        this.userService.loggedIn.next(true);
         localStorage.setItem('user', JSON.stringify(users));
+        this.userService.loggedIn.next(true);
         console.log(`User, ${this.user.username}, successfully logged in!`);
         this.router.navigate(['home']);
       }
