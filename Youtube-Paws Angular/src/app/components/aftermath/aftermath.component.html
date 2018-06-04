@@ -1,0 +1,26 @@
+<div>
+  <input type="text" class="form-control float-left" id="search" name="search" placeholder="Search" [(ngModel)]="search">
+  <button type="submit" class="btn btn-danger" (click)="searched()">Search</button>
+</div>
+
+
+<div class="white-box">
+  <table class="table" style="width:75%">
+    <ng-container *ngFor="let vid of obj.items; let i = index">
+      <tr *ngIf="viewSetting.lengthMax > vidMins[i] && vidMins[i] > viewSetting.lengthMin">
+        <td>
+          <img src="{{vid.snippet.thumbnails.medium.url}}">
+        </td>
+        <td>
+          <h3>{{vid.snippet.title}}</h3>
+          <h6>{{vid.snippet.description}}</h6>
+          <h6>{{viewSetting.lengthMax}} , {{ vidMins[i] }} , {{viewSetting.lengthMin}}</h6>
+          <h4>{{vid.snippet.publishedAt | date}}</h4>
+
+          <button type="vid1" class="btn btn-success" routerLink="/watch/{{vid.id.videoId}}/1">Video1</button>
+          <button type="vid2" class="btn btn-primary" routerLink="/watch/{{vid.id.videoId}}/2">Video2</button>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+</div>

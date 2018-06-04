@@ -1,0 +1,94 @@
+<nav class="navbar navbar-light" style="background-color: rgb(170, 169, 169);">
+  <a class="navbar-brand" href="#">
+    <img src="assets/mytubepaws.jpg" height="80" width=auto alt="Youtube-Paws">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText"
+    aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a *ngIf="loggedIn" class="nav-link" routerLink="/home">Home
+          <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+
+      <li class="nav-item">
+        <a *ngIf="loggedIn" class="nav-link" routerLink="/subscriptions">Subscriptions</a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="!loggedIn" class="nav-link" routerLink="/login">Login</a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="!loggedIn" class="nav-link" routerLink="/register">Register</a>
+      </li>
+      <li class="nav-item">
+        <a *ngIf="loggedIn" class="nav-link" routerLink="/settings">Settings</a>
+      </li>
+      <li class="nav-item">
+          <a *ngIf="timed" class="nav-link">{{ count }} </a>
+        </li>
+
+      <li class="nav-item">
+        <a *ngIf="loggedIn" class="nav-link" routerLink="" (click)="logout()">Logout</a>
+      </li>
+    </ul>
+
+  </div>
+</nav>
+
+<!-- Playlist Bar -->
+<div *ngIf="loggedIn" id="playlist" class="sidenav" [style.width]="isOpen ? '250px':'0px'">
+  <a class="closebtn" (click)="closeNav()">&times;</a>
+  <a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
+<span *ngIf="loggedIn" style="font-size:30px;cursor:pointer" (click)="openNav()">&#9776; Playlist</span>
+
+<!-- View Settings Bar -->
+<span *ngIf="loggedIn" style="font-size:30px;cursor:pointer; float: right;" (click)="openView()">&#9776; View Settings</span>
+<div *ngIf="loggedIn" id="view-settings" class="sidenav" [style.width]="viewOpen ? '350px':'0px'">
+  <a class="closebtn" (click)="closeView()">&times;</a>
+  <!-- <h3>{{loggedUser.userViewSettings[0].viewSettingsName}}</h3> -->
+  <span ng-controller="settings" *ngIf="loggedUser.userViewSettings.length != 0">
+    <div>
+      <label for="singleSelect">Customization</label>
+      <select class="form-control" name="viewIndex" id="viewIndex" [(ngModel)]="viewIndex">
+        <option *ngFor="let views of loggedUser.userViewSettings; let i = index" value={{i}}>{{ views.viewSettingsName }}</option>
+      </select>
+    </div>
+    <div>
+      <button class="btn btn-primary" id="use" name="use" (click)="changeSet(viewIndex)">Use</button>
+    </div>
+  </span>
+  <h3 *ngIf="loggedUser.userViewSettings.length == 0">No View Settings</h3>
+  <label>Minimum Time {{viewIndex}}</label>
+  <div>
+    <input type="text" id="minDuration" class="form-control col-sm-4" placeholder="min" [(ngModel)]="minStr">
+  </div>
+  <label>Maximum Time</label>
+  <div>
+    <input type="text" id="maxDuration" class="form-control col-sm-4" placeholder="max" [(ngModel)]="maxStr">
+  </div>
+  <label>Upload Date's Between</label>
+  <div>
+    <input type="text" id="minDate" class="form-control col-sm-4" placeholder="yyyy-MM-dd" [(ngModel)]="minDate">
+  </div>
+  <label>To</label>
+  <div>
+    <input type="text" id="maxDate" class="form-control col-sm-4" placeholder="yyyy-MM-dd" [(ngModel)]="maxDate">
+  </div>
+  <div>
+    <button class="btn btn-primary" id="viewUpdate" (click)="viewUpdate()">Update</button>
+  </div>
+  <div>
+    <input type="text" id="playlistName" class="form-control col-sm-4" placeholder="Playlist Name" [(ngModel)]="viewName" required>
+  </div>
+  <button class="btn btn-primary" id="newPlaylist" (click)="newPlaylist()">New</button>
+</div>
+<!-- ///////////////////////////////////////////////////////// -->
+<router-outlet></router-outlet>

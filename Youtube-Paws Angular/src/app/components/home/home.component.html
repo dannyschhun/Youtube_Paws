@@ -1,0 +1,21 @@
+<br>
+<div  id="searchBar">
+  <div class="container" class="col-md-4 offset-md-5" id="searchForm">
+    <div class="row">
+      <div class="form_bg">
+        <form ngNativeValidate (ngSubmit)="searched()">
+          <h2 class="display-3" id="formText">Search
+            <img style="float:left" src="assets/redpaws.png" alt="Paws" width="50" height="50">
+          </h2>
+          <div class="form-group">
+            <label for="search"></label>
+            <input type="text" class="form-control" id="search" name="search" placeholder="Cat Videos" [(ngModel)]="search">
+          </div>
+          <div class="col-md-4 offset-md-3" id="searchBtn">
+            <button type="submit" class="btn btn-danger" >Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

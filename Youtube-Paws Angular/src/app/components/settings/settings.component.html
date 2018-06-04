@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="row">
+    <div class="form_bg">
+      <form ngNativeValidate (ngSubmit)="chooseLayout()">
+        <h2 class="display-3">Settings
+          <img style="float:left" src="../../../assets/redpaws.png" alt="Paws" width="50" height="50">
+        </h2>
+
+        <div class="form-group">
+          <label for="layoutName">Name of your layout</label>
+          <input type="text" class="form-control" id="layoutName" name="layout.layoutName" placeholder="Layout-Name" [(ngModel)]="this.layout.layoutName"
+          required>
+        </div>
+
+        <div ng-controller="searchBarController">
+          <label for="singleSelect"> Search Bar </label>
+          <select class="form-control" name="searchBarLoc" id="searchBarLoc" [(ngModel)]="layout.searchBarLoc">
+            <option value="" selected>---Please select---</option>
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+            <option value="top">Up</option>
+            <option value="bottom">Down</option>
+          </select>
+        </div>
+
+        <div ng-controller="video1Loc">
+          <label for="singleSelect"> Video 1 </label>
+          <select class="form-control" name="video1Loc" id="video1Loc" [(ngModel)]="layout.video1Loc">
+            <option value="" selected>---Please select---</option>
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+            <option value="top">Up</option>
+            <option value="bottom">Down</option>
+          </select>
+        </div>
+
+        <div ng-controller="video2Loc">
+          <label for="singleSelect"> Video 2 </label>
+          <select class="form-control" name="video2Loc" id="video2Loc" [(ngModel)]="layout.video2Loc">
+            <option value="" selected>---Please select---</option>
+            <option value="left">Left</option>
+            <option value="right">Right</option>
+            <option value="top">Up</option>
+            <option value="bottom">Down</option>
+          </select>
+        </div>
+
+        <div class="col-md-4 offset-md-3">
+            <button type="submit" class="btn btn" id="submit">Submit</button>
+          </div>
+
+      </form>
+    </div>
+  </div>
+</div>
